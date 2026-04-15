@@ -1,0 +1,25 @@
+# lychee link-checker config
+# https://lychee.cli.rs/
+
+# Skip checking these — they're private/rate-limited/not publicly accessible.
+exclude = [
+    # GitHub login-gated
+    "^https://github\\.com/.+/settings",
+    # LinkedIn (login wall)
+    "^https://(www\\.)?linkedin\\.com/",
+    # Common rate-limited documentation hosts
+    "^https://doi\\.org/",
+]
+
+# Don't scan these paths.
+exclude_path = [
+    "node_modules",
+    ".git",
+]
+
+# Accept these status codes as "link is fine" — some sites rate-limit CI.
+accept = [200, 206, 301, 302, 403, 429]
+
+# Network settings.
+max_retries = 2
+timeout = 20

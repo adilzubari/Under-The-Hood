@@ -1,0 +1,35 @@
+{
+  // markdownlint-cli2 config — be lenient. We optimize for readability on GitHub,
+  // not strict style compliance.
+  "default": true,
+
+  // Allow long lines — prose and code examples flow naturally.
+  "MD013": false,
+
+  // Allow inline HTML (we use <details>/<summary> deliberately).
+  "MD033": false,
+
+  // Allow duplicate headings at different levels (e.g., repeated "### Scenario").
+  "MD024": { "siblings_only": true },
+
+  // Allow emphasis as headings where we use bold for sub-point emphasis.
+  "MD036": false,
+
+  // Allow bare URLs — they're fine in references sections.
+  "MD034": false,
+
+  // Don't require specific heading punctuation style.
+  "MD026": false,
+
+  // Allow ordered lists with any prefix (1. 2. 3. or 1. 1. 1.).
+  "MD029": false,
+
+  // First line doesn't have to be H1 (frontmatter + H1 is fine).
+  "MD041": false,
+
+  // Code blocks can be indented OR fenced.
+  "MD046": false,
+
+  // Allow trailing spaces only where meaningful (line breaks).
+  "MD009": { "br_spaces": 2 }
+}
