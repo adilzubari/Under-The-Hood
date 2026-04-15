@@ -54,6 +54,7 @@ Each phase index lists its planned topics with a checklist and learning order. L
 
 - 🎯 **[Interview Bank](docs/interview-bank/index.md)** — every Q&A indexed [by difficulty](docs/interview-bank/by-difficulty.md) and [by topic](docs/interview-bank/by-topic.md). Auto-generated from every `<details>` block across the repo.
 - 🏗️ **[Scenarios Bank](docs/scenarios-bank/index.md)** — system-design problems that span multiple phases. Worked examples: [URL Shortener](docs/scenarios-bank/design-url-shortener.md), [Rate Limiter](docs/scenarios-bank/design-rate-limiter.md), [Notifications Service](docs/scenarios-bank/design-notifications-service.md).
+- 🗺️ **[Study Plans](docs/study-plans.md)** — curated sequenced tracks (mid-level sprint, senior system design, depth-first).
 - 📖 **[Glossary](docs/glossary.md)** — quick definitions linked to deep dives.
 - 🏷️ **[Tags](docs/tags.md)** — cross-phase discovery by topic tag.
 - 📊 **[Progress](docs/progress.md)** — phase completion dashboard.
