@@ -6,6 +6,8 @@ name: Regenerate generated docs
 # Currently generates:
 #   - docs/interview-bank/{by-difficulty,by-topic,all-questions}.md
 #   - docs/progress.md
+#   - docs/tags.md
+#   - exports/flashcards.csv (Anki import)
 
 on:
   push:
@@ -40,13 +42,19 @@ jobs:
       - name: Regenerate progress dashboard
         run: python3 .github/scripts/build_progress.py
 
+      - name: Regenerate tags index
+        run: python3 .github/scripts/build_tags.py
+
+      - name: Regenerate Anki flashcard export
+        run: python3 .github/scripts/build_anki.py
+
       - name: Commit changes (if any)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ -n "$(git status --porcelain docs/)" ]]; then
-            git add docs/interview-bank/ docs/progress.md
-            git commit -m "chore: regenerate interview bank + progress [skip ci]"
+          if [[ -n "$(git status --porcelain docs/ exports/)" ]]; then
+            git add docs/interview-bank/ docs/progress.md docs/tags.md exports/
+            git commit -m "chore: regenerate generated docs [skip ci]"
             git push
           else
             echo "Generated docs are already up to date — nothing to commit."

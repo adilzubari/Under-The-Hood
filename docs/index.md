@@ -53,4 +53,5 @@ See the [Progress Dashboard](progress.md) for phase-by-phase completion status.
 - 🎯 **[Interview Bank](interview-bank/index.md)** — every Q&A, indexed by difficulty and topic.
 - 🏗️ **[Scenarios Bank](scenarios-bank/index.md)** — system-design problems that span multiple phases.
 - 📖 **[Glossary](glossary.md)** — quick definitions linked to deep dives.
+- 🏷️ **[Tags](tags.md)** — every topic grouped by tag for cross-phase discovery.
 - 📊 **[Progress Dashboard](progress.md)** — phase completion status.
