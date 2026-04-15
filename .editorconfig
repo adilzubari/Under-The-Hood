@@ -1,0 +1,23 @@
+# https://editorconfig.org/
+# Keeps formatting consistent across editors/OSes. GitHub renders whatever you
+# commit, so a little discipline here saves a class of diff noise.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.md]
+# Markdown: preserve trailing whitespace (meaningful for line breaks)
+trim_trailing_whitespace = false
+
+[*.{py}]
+indent_size = 4
+
+[Makefile]
+indent_style = tab
