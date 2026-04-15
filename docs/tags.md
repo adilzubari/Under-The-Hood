@@ -10,7 +10,7 @@ tags:
 
 Tags connect topics across phases. Click any tag header to jump to its section.
 
-**Total tags:** 52
+**Total tags:** 56
 
 ## Index
 
@@ -22,14 +22,14 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 - [`behavioral`](#behavioral) — 3 pages
 - [`caching`](#caching) — 2 pages
 - [`cloud`](#cloud) — 1 page
-- [`concurrency`](#concurrency) — 2 pages
+- [`concurrency`](#concurrency) — 3 pages
 - [`creational`](#creational) — 3 pages
 - [`data-pipelines`](#data-pipelines) — 1 page
 - [`database`](#database) — 1 page
 - [`dependency-injection`](#dependency-injection) — 1 page
 - [`design-patterns`](#design-patterns) — 11 pages
 - [`devops`](#devops) — 1 page
-- [`distributed-systems`](#distributed-systems) — 2 pages
+- [`distributed-systems`](#distributed-systems) — 4 pages
 - [`elasticsearch`](#elasticsearch) — 1 page
 - [`error-handling`](#error-handling) — 1 page
 - [`exceptions`](#exceptions) — 1 page
@@ -38,17 +38,19 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 - [`functional-programming`](#functional-programming) — 1 page
 - [`fundamentals`](#fundamentals) — 10 pages
 - [`garbage-collection`](#garbage-collection) — 1 page
+- [`index`](#index) — 1 page
 - [`infrastructure`](#infrastructure) — 1 page
 - [`kafka`](#kafka) — 1 page
 - [`lifecycle`](#lifecycle) — 1 page
 - [`logging`](#logging) — 1 page
 - [`memory`](#memory) — 1 page
-- [`messaging`](#messaging) — 2 pages
+- [`messaging`](#messaging) — 3 pages
 - [`networking`](#networking) — 1 page
 - [`observability`](#observability) — 3 pages
 - [`oop`](#oop) — 1 page
 - [`performance`](#performance) — 2 pages
 - [`protocols`](#protocols) — 1 page
+- [`pub-sub`](#pub-sub) — 1 page
 - [`pytest`](#pytest) — 1 page
 - [`quality`](#quality) — 1 page
 - [`rate-limiting`](#rate-limiting) — 1 page
@@ -63,9 +65,11 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 - [`solid`](#solid) — 2 pages
 - [`storage`](#storage) — 1 page
 - [`structural`](#structural) — 3 pages
-- [`system-design`](#system-design) — 6 pages
+- [`study-plans`](#study-plans) — 1 page
+- [`system-design`](#system-design) — 8 pages
 - [`testing`](#testing) — 2 pages
 - [`threading`](#threading) — 1 page
+- [`websockets`](#websockets) — 1 page
 
 ## `api`
 
@@ -107,6 +111,7 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 ## `concurrency`
 
 - [Async, Concurrency & Threading](01-programming-fundamentals/async-concurrency.md)
+- [Design a Priority Job Queue](scenarios-bank/design-priority-job-queue.md)
 - [Phase 6 — Concurrency & Asynchronous Systems](06-concurrency-async/index.md)
 
 ## `creational`
@@ -147,7 +152,9 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 
 ## `distributed-systems`
 
+- [Design a Priority Job Queue](scenarios-bank/design-priority-job-queue.md)
 - [Design a Rate Limiter](scenarios-bank/design-rate-limiter.md)
+- [Design a Real-Time Chat System](scenarios-bank/design-real-time-chat.md)
 - [Phase 15 — Distributed Systems Concepts](15-distributed-systems/index.md)
 
 ## `elasticsearch`
@@ -191,6 +198,10 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 
 - [Memory Management & Garbage Collection](01-programming-fundamentals/memory-management.md)
 
+## `index`
+
+- [🗺️ Study Plans](study-plans.md)
+
 ## `infrastructure`
 
 - [Phase 7 — Cloud & Infrastructure](07-cloud-infrastructure/index.md)
@@ -214,6 +225,7 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 ## `messaging`
 
 - [Design a Notifications Service](scenarios-bank/design-notifications-service.md)
+- [Design a Priority Job Queue](scenarios-bank/design-priority-job-queue.md)
 - [Phase 12 — Data Pipelines & Messaging](12-data-pipelines-messaging/index.md)
 
 ## `networking`
@@ -238,6 +250,10 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 ## `protocols`
 
 - [Phase 5 — Networking & Communication](05-networking-communication/index.md)
+
+## `pub-sub`
+
+- [Design a Real-Time Chat System](scenarios-bank/design-real-time-chat.md)
 
 ## `pytest`
 
@@ -298,10 +314,16 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 - [Decorator Pattern](01-programming-fundamentals/design-patterns/decorator.md)
 - [Proxy Pattern](01-programming-fundamentals/design-patterns/proxy.md)
 
+## `study-plans`
+
+- [🗺️ Study Plans](study-plans.md)
+
 ## `system-design`
 
 - [Design a Notifications Service](scenarios-bank/design-notifications-service.md)
+- [Design a Priority Job Queue](scenarios-bank/design-priority-job-queue.md)
 - [Design a Rate Limiter](scenarios-bank/design-rate-limiter.md)
+- [Design a Real-Time Chat System](scenarios-bank/design-real-time-chat.md)
 - [Design a URL Shortener](scenarios-bank/design-url-shortener.md)
 - [Phase 20 — Soft Skills & System Design](20-soft-skills-system-design/index.md)
 - [Phase 4 — System Design & Architecture](04-system-design-architecture/index.md)
@@ -315,3 +337,7 @@ Tags connect topics across phases. Click any tag header to jump to its section.
 ## `threading`
 
 - [Async, Concurrency & Threading](01-programming-fundamentals/async-concurrency.md)
+
+## `websockets`
+
+- [Design a Real-Time Chat System](scenarios-bank/design-real-time-chat.md)
