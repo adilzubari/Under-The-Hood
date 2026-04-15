@@ -49,5 +49,5 @@ Senior/staff territory. Trade-offs, edge cases, real-world distributed thinking.
 - [How would you make a flaky test reliable?](../01-programming-fundamentals/testing-frameworks.md#interview-questions) — Phase 1
 - [Why does my Python process not give memory back to the OS?](../01-programming-fundamentals/memory-management.md#interview-questions) — Phase 1
 
-!!! note "Add as you write"
-    This index grows as more topics are written. When you write a new topic, link its key questions here under the appropriate difficulty.
+> [!NOTE]
+> **Add as you write.** This index grows as more topics are written. When you write a new topic, link its key questions here under the appropriate difficulty.

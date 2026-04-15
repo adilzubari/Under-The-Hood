@@ -2,8 +2,8 @@
 
 Quick definitions, linked to deep dives where they exist.
 
-!!! note
-    This glossary grows as topics are written. Add a term here when you first introduce it elsewhere.
+> [!NOTE]
+> This glossary grows as topics are written. Add a term here when you first introduce it elsewhere.
 
 ## A
 
