@@ -155,26 +155,42 @@ Subclasses register themselves. No central dict to maintain.
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Factory Method vs Abstract Factory — what's the difference?"
-    **Factory Method** is one method (often abstract) that subclasses override to produce one kind of object. **Abstract Factory** is an object whose methods produce a *family* of related objects, ensuring consistency across them. Factory Method = single-product polymorphism; Abstract Factory = product-family polymorphism.
+<details>
+<summary><strong>Q1: Factory Method vs Abstract Factory — what's the difference?</strong></summary>
 
-??? question "Q2: When does a Factory help vs hurt?"
-    Helps when: choice depends on config/input, multiple implementations exist, construction is non-trivial. Hurts when: there's one implementation forever, or the factory becomes a god-object knowing every concrete type (then you've just moved the coupling). Use it to *reduce* `if isinstance` chains, not to add ceremony around `Foo()`.
+**Factory Method** is one method (often abstract) that subclasses override to produce one kind of object. **Abstract Factory** is an object whose methods produce a *family* of related objects, ensuring consistency across them. Factory Method = single-product polymorphism; Abstract Factory = product-family polymorphism.
 
-??? question "Q3: How does dependency injection relate to factories?"
-    DI containers are essentially factories with extra features (lifetime management, autowiring). Both centralize construction. Difference: a factory is invoked explicitly by the caller (`make_notifier("email")`); DI hands the instance in implicitly. They compose well — DI containers often *use* factory functions as providers.
+</details>
+<details>
+<summary><strong>Q2: When does a Factory help vs hurt?</strong></summary>
 
-??? question "Q4: What's wrong with this factory?"
-    ```python
-    def make(kind):
-        if kind == "a": return A()
-        elif kind == "b": return B()
-        # ...
-    ```
-    Open/Closed violation: adding kind "c" requires editing this function. Replace with a registry dict or auto-registration via `__init_subclass__`. Also: silently returns `None` for unknown kinds — should raise `ValueError`.
+Helps when: choice depends on config/input, multiple implementations exist, construction is non-trivial. Hurts when: there's one implementation forever, or the factory becomes a god-object knowing every concrete type (then you've just moved the coupling). Use it to *reduce* `if isinstance` chains, not to add ceremony around `Foo()`.
 
-??? question "Q5: Are class methods the same as static factory methods?"
-    Close, but `@classmethod` receives `cls` (so it's polymorphic over subclasses) and `@staticmethod` doesn't. Pythonic factory methods are usually `@classmethod` named `from_*`: `Date.from_string("2024-01-01")`, `User.from_dict(...)`. They give you alternative constructors without overloading `__init__`.
+</details>
+<details>
+<summary><strong>Q3: How does dependency injection relate to factories?</strong></summary>
+
+DI containers are essentially factories with extra features (lifetime management, autowiring). Both centralize construction. Difference: a factory is invoked explicitly by the caller (`make_notifier("email")`); DI hands the instance in implicitly. They compose well — DI containers often *use* factory functions as providers.
+
+</details>
+<details>
+<summary><strong>Q4: What's wrong with this factory?</strong></summary>
+
+```python
+def make(kind):
+    if kind == "a": return A()
+    elif kind == "b": return B()
+    # ...
+```
+Open/Closed violation: adding kind "c" requires editing this function. Replace with a registry dict or auto-registration via `__init_subclass__`. Also: silently returns `None` for unknown kinds — should raise `ValueError`.
+
+</details>
+<details>
+<summary><strong>Q5: Are class methods the same as static factory methods?</strong></summary>
+
+Close, but `@classmethod` receives `cls` (so it's polymorphic over subclasses) and `@staticmethod` doesn't. Pythonic factory methods are usually `@classmethod` named `from_*`: `Date.from_string("2024-01-01")`, `User.from_dict(...)`. They give you alternative constructors without overloading `__init__`.
+
+</details>
 
 ## 🏗️ Scenarios
 

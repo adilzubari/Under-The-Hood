@@ -161,20 +161,36 @@ Or post to a message queue and let workers handle it (full pub/sub).
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Observer vs Pub/Sub?"
-    Observer is in-process: subject and observers share memory and call each other directly. Pub/Sub is typically distributed, mediated by a broker (Kafka, Redis, RabbitMQ). Pub/Sub publishers and subscribers don't know each other at all — they only know the broker and the topic. Observer is the design pattern; Pub/Sub is its distributed-system cousin.
+<details>
+<summary><strong>Q1: Observer vs Pub/Sub?</strong></summary>
 
-??? question "Q2: What problems does Observer cause and how do you mitigate?"
-    Hidden coupling — adding an observer changes runtime behavior in ways not visible at the call site. Mitigations: explicit event names (not method names), document emitted events as a contract, log every event in dev, avoid cyclic notifications (subject A → observer → subject B → observer A).
+Observer is in-process: subject and observers share memory and call each other directly. Pub/Sub is typically distributed, mediated by a broker (Kafka, Redis, RabbitMQ). Pub/Sub publishers and subscribers don't know each other at all — they only know the broker and the topic. Observer is the design pattern; Pub/Sub is its distributed-system cousin.
 
-??? function "Q3: Push vs Pull notification?"
-    **Push:** subject sends the data with the notification (`observer.update(new_value)`). **Pull:** subject sends only "something changed"; observer asks for what it needs (`observer.update(self); ... self.subject.get_state()`). Push is simpler; Pull is flexible (observers fetch only what they care about). GoF's textbook example is Pull.
+</details>
+<details>
+<summary><strong>Q2: What problems does Observer cause and how do you mitigate?</strong></summary>
 
-??? question "Q4: How would you make Observer thread-safe?"
-    Lock around `attach`/`detach`/`notify` so the observer list isn't mutated mid-iteration. Or copy the list before iterating: `for o in list(self._observers): o.update(self)`. Better: use `concurrent.futures` to dispatch notifications and let observers run independently.
+Hidden coupling — adding an observer changes runtime behavior in ways not visible at the call site. Mitigations: explicit event names (not method names), document emitted events as a contract, log every event in dev, avoid cyclic notifications (subject A → observer → subject B → observer A).
 
-??? question "Q5: How does Observer differ from Mediator?"
-    Observer broadcasts change events from one source to many listeners (1:N). Mediator coordinates communication between many peers via a hub (N:N). Observer is one-way (subject → observer); Mediator is bidirectional through the hub.
+</details>
+<details>
+<summary><strong>Q3: Push vs Pull notification?</strong></summary>
+
+**Push:** subject sends the data with the notification (`observer.update(new_value)`). **Pull:** subject sends only "something changed"; observer asks for what it needs (`observer.update(self); ... self.subject.get_state()`). Push is simpler; Pull is flexible (observers fetch only what they care about). GoF's textbook example is Pull.
+
+</details>
+<details>
+<summary><strong>Q4: How would you make Observer thread-safe?</strong></summary>
+
+Lock around `attach`/`detach`/`notify` so the observer list isn't mutated mid-iteration. Or copy the list before iterating: `for o in list(self._observers): o.update(self)`. Better: use `concurrent.futures` to dispatch notifications and let observers run independently.
+
+</details>
+<details>
+<summary><strong>Q5: How does Observer differ from Mediator?</strong></summary>
+
+Observer broadcasts change events from one source to many listeners (1:N). Mediator coordinates communication between many peers via a hub (N:N). Observer is one-way (subject → observer); Mediator is bidirectional through the hub.
+
+</details>
 
 ## 🏗️ Scenarios
 

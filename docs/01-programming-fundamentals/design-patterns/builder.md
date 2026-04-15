@@ -167,20 +167,36 @@ Type checker now refuses to call `build()` until `url()` was called. Powerful bu
 
 ## 🎯 Interview Questions
 
-??? question "Q1: When does Python's keyword-arguments not replace Builder?"
-    Three cases: (1) Multi-stage construction where intermediate state matters and validation runs incrementally. (2) Fluent DSLs where the chain itself is the point (SQL builders, test fixtures). (3) Type-state encoding where types track which fields are set. For "object with 10 optional params," dataclass beats Builder.
+<details>
+<summary><strong>Q1: When does Python's keyword-arguments not replace Builder?</strong></summary>
 
-??? question "Q2: Builder vs Factory?"
-    Factory: produces objects in *one step* — caller picks the kind, factory returns it. Builder: produces objects across *many steps* — caller incrementally configures, then materializes. Factory hides which class is instantiated; Builder hides the construction algorithm.
+Three cases: (1) Multi-stage construction where intermediate state matters and validation runs incrementally. (2) Fluent DSLs where the chain itself is the point (SQL builders, test fixtures). (3) Type-state encoding where types track which fields are set. For "object with 10 optional params," dataclass beats Builder.
 
-??? question "Q3: Why is `return self` important in fluent Builders?"
-    Without it, the chain breaks: `builder.url("...").method(...)` becomes `None.method(...)` → AttributeError. Every configuration method returns `self` so calls can be chained.
+</details>
+<details>
+<summary><strong>Q2: Builder vs Factory?</strong></summary>
 
-??? question "Q4: How does Builder support immutability?"
-    Builder collects mutable state internally; `build()` produces an immutable snapshot. The Builder can be reused or discarded; the built object never changes. This separates "configuration-time" mutability from "use-time" immutability — which is exactly what most domain objects want.
+Factory: produces objects in *one step* — caller picks the kind, factory returns it. Builder: produces objects across *many steps* — caller incrementally configures, then materializes. Factory hides which class is instantiated; Builder hides the construction algorithm.
 
-??? question "Q5: Common Python libraries that use Builder?"
-    SQLAlchemy's query API: `session.query(User).filter(...).order_by(...).limit(10).all()`. Pandas method chaining. `httpx.Client` configuration. Django's QuerySet. All build up state through chained method calls and materialize on a terminal operation.
+</details>
+<details>
+<summary><strong>Q3: Why is `return self` important in fluent Builders?</strong></summary>
+
+Without it, the chain breaks: `builder.url("...").method(...)` becomes `None.method(...)` → AttributeError. Every configuration method returns `self` so calls can be chained.
+
+</details>
+<details>
+<summary><strong>Q4: How does Builder support immutability?</strong></summary>
+
+Builder collects mutable state internally; `build()` produces an immutable snapshot. The Builder can be reused or discarded; the built object never changes. This separates "configuration-time" mutability from "use-time" immutability — which is exactly what most domain objects want.
+
+</details>
+<details>
+<summary><strong>Q5: Common Python libraries that use Builder?</strong></summary>
+
+SQLAlchemy's query API: `session.query(User).filter(...).order_by(...).limit(10).all()`. Pandas method chaining. `httpx.Client` configuration. Django's QuerySet. All build up state through chained method calls and materialize on a terminal operation.
+
+</details>
 
 ## 🏗️ Scenarios
 

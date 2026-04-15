@@ -174,20 +174,36 @@ flowchart LR
 
 ## 🎯 Interview Questions
 
-??? question "Q1: What's a pure function?"
-    A function whose output depends only on its inputs and that produces no side effects (no I/O, no mutation of external state, no clock reads, no random calls). Pure functions are referentially transparent — you can replace the call with its return value anywhere without changing program behavior.
+<details>
+<summary><strong>Q1: What's a pure function?</strong></summary>
 
-??? question "Q2: Why is immutability valuable in concurrent code?"
-    No shared mutable state means no data races. Multiple threads can read the same value without locks. In Python this matters less because of the GIL, but in distributed systems (or any language with real parallelism) immutability eliminates an entire class of bugs.
+A function whose output depends only on its inputs and that produces no side effects (no I/O, no mutation of external state, no clock reads, no random calls). Pure functions are referentially transparent — you can replace the call with its return value anywhere without changing program behavior.
 
-??? question "Q3: Difference between `map`/`filter` and list comprehensions in Python?"
-    Functionally equivalent for simple cases. Comprehensions are more idiomatic, often clearer, and slightly faster. `map`/`filter` shine when you already have a named function to apply (`map(json.loads, lines)`). Generator expressions (`(x*2 for x in xs)`) are lazy — useful for large or infinite sequences.
+</details>
+<details>
+<summary><strong>Q2: Why is immutability valuable in concurrent code?</strong></summary>
 
-??? question "Q4: What is `functools.lru_cache` and when would you use it?"
-    Decorator that memoizes function results based on arguments — cache hits skip the function body. Use for **pure** functions with expensive computation and a bounded input space. Don't use for impure functions (cache won't reflect external changes) or unbounded inputs (memory leak).
+No shared mutable state means no data races. Multiple threads can read the same value without locks. In Python this matters less because of the GIL, but in distributed systems (or any language with real parallelism) immutability eliminates an entire class of bugs.
 
-??? question "Q5: Python doesn't optimize tail calls — why does that matter?"
-    Recursive solutions in FP languages rely on tail-call optimization to avoid stack overflow. Python doesn't do TCO; deep recursion blows the stack (~1000 frames default). Convert recursion to iteration, or use an explicit stack/queue, when depth might grow.
+</details>
+<details>
+<summary><strong>Q3: Difference between `map`/`filter` and list comprehensions in Python?</strong></summary>
+
+Functionally equivalent for simple cases. Comprehensions are more idiomatic, often clearer, and slightly faster. `map`/`filter` shine when you already have a named function to apply (`map(json.loads, lines)`). Generator expressions (`(x*2 for x in xs)`) are lazy — useful for large or infinite sequences.
+
+</details>
+<details>
+<summary><strong>Q4: What is `functools.lru_cache` and when would you use it?</strong></summary>
+
+Decorator that memoizes function results based on arguments — cache hits skip the function body. Use for **pure** functions with expensive computation and a bounded input space. Don't use for impure functions (cache won't reflect external changes) or unbounded inputs (memory leak).
+
+</details>
+<details>
+<summary><strong>Q5: Python doesn't optimize tail calls — why does that matter?</strong></summary>
+
+Recursive solutions in FP languages rely on tail-call optimization to avoid stack overflow. Python doesn't do TCO; deep recursion blows the stack (~1000 frames default). Convert recursion to iteration, or use an explicit stack/queue, when depth might grow.
+
+</details>
 
 ## 🏗️ Scenarios
 

@@ -111,24 +111,40 @@ If you only need the new methods on top of the old ones, you might be reaching f
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Adapter vs Decorator vs Proxy — they all wrap. What's different?"
-    All three wrap a wrapped object and forward calls. Differences are in *intent*:
-    - **Adapter** changes the *interface* (different shape).
-    - **Decorator** keeps the interface, *adds behavior*.
-    - **Proxy** keeps the interface, *controls access* (lazy load, auth, caching).
-    Same UML, different purposes — interview answers should focus on intent.
+<details>
+<summary><strong>Q1: Adapter vs Decorator vs Proxy — they all wrap. What's different?</strong></summary>
 
-??? question "Q2: When would you use class adapter (inheritance) over object adapter (composition)?"
-    Almost never in modern code. Class adapter requires multiple inheritance and ties you to the adaptee's class hierarchy — fragile if the adaptee changes. Object adapter (composition) is more flexible: works with any subclass of the adaptee, can swap adaptees at runtime.
+All three wrap a wrapped object and forward calls. Differences are in *intent*:
+- **Adapter** changes the *interface* (different shape).
+- **Decorator** keeps the interface, *adds behavior*.
+- **Proxy** keeps the interface, *controls access* (lazy load, auth, caching).
+Same UML, different purposes — interview answers should focus on intent.
 
-??? question "Q3: Where should adapters live in a Clean Architecture / Hexagonal layout?"
-    At the edges — the "infrastructure" or "adapters" layer. The domain core defines the interface (port); the adapter implements it for a specific technology (database, message broker, third-party SDK). This is literally where Hexagonal Architecture gets the name "ports & adapters."
+</details>
+<details>
+<summary><strong>Q2: When would you use class adapter (inheritance) over object adapter (composition)?</strong></summary>
 
-??? question "Q4: How do you test code that uses an Adapter?"
-    Mock the adaptee at the boundary, assert the adapter translates correctly. The clients of the adapter need only a stub Storage implementation — they don't know about the SDK. Two test layers: adapter tests (verify translation) and client tests (use a fake conforming to the port).
+Almost never in modern code. Class adapter requires multiple inheritance and ties you to the adaptee's class hierarchy — fragile if the adaptee changes. Object adapter (composition) is more flexible: works with any subclass of the adaptee, can swap adaptees at runtime.
 
-??? question "Q5: Adapter for protocol mismatch (e.g., sync wrapping async)?"
-    Yes — common case. Wrapping a sync library to expose an async interface, you'd typically use `asyncio.to_thread` to avoid blocking the event loop. Wrapping async with sync requires running an event loop — usually `asyncio.run` per call (slow) or sharing a background loop (complex).
+</details>
+<details>
+<summary><strong>Q3: Where should adapters live in a Clean Architecture / Hexagonal layout?</strong></summary>
+
+At the edges — the "infrastructure" or "adapters" layer. The domain core defines the interface (port); the adapter implements it for a specific technology (database, message broker, third-party SDK). This is literally where Hexagonal Architecture gets the name "ports & adapters."
+
+</details>
+<details>
+<summary><strong>Q4: How do you test code that uses an Adapter?</strong></summary>
+
+Mock the adaptee at the boundary, assert the adapter translates correctly. The clients of the adapter need only a stub Storage implementation — they don't know about the SDK. Two test layers: adapter tests (verify translation) and client tests (use a fake conforming to the port).
+
+</details>
+<details>
+<summary><strong>Q5: Adapter for protocol mismatch (e.g., sync wrapping async)?</strong></summary>
+
+Yes — common case. Wrapping a sync library to expose an async interface, you'd typically use `asyncio.to_thread` to avoid blocking the event loop. Wrapping async with sync requires running an event loop — usually `asyncio.run` per call (slow) or sharing a background loop (complex).
+
+</details>
 
 ## 🏗️ Scenarios
 

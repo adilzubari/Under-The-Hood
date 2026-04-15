@@ -251,23 +251,42 @@ Pythonic preference: Fakes > Stubs/Spies > Mocks. Fakes are reusable across test
 
 ## 🎯 Interview Questions
 
-??? question "Q1: TDD vs writing tests after — practical view?"
-    TDD (red → green → refactor) helps when you don't know the design yet — writing the test first forces you to design from the consumer's perspective. After-tests are fine when the design is obvious. The bigger win is *having tests at all* and writing them at the *right grain* (mostly unit, some integration). Whether they come before or after is less important than that they exist.
+<details>
+<summary><strong>Q1: TDD vs writing tests after — practical view?</strong></summary>
 
-??? question "Q2: When do you mock vs use a real dependency?"
-    Mock external systems (3rd-party APIs, paid services). Use real for things you own (your DB in integration tests, an in-memory fake of your DB in unit tests). Rule of thumb: mock at *system boundaries*, not internal interfaces. Mocking your own internal functions usually means tests are coupled to implementation.
+TDD (red → green → refactor) helps when you don't know the design yet — writing the test first forces you to design from the consumer's perspective. After-tests are fine when the design is obvious. The bigger win is *having tests at all* and writing them at the *right grain* (mostly unit, some integration). Whether they come before or after is less important than that they exist.
 
-??? question "Q3: Why is `pytest.fixture(scope='session')` faster but riskier?"
-    Session-scoped fixtures are created once per pytest run, shared across all tests. Avoids repeated setup (e.g., DB connection). Risk: if a test mutates the fixture, later tests see the mutation — order dependence creeps in. Use session scope for *immutable* expensive resources; function scope for anything tests touch.
+</details>
+<details>
+<summary><strong>Q2: When do you mock vs use a real dependency?</strong></summary>
 
-??? question "Q4: Coverage doesn't measure quality — what does?"
-    Mutation testing (`mutmut`, `cosmic-ray`) — flips operators, deletes branches, runs tests. Surviving mutants = tests didn't catch the change = weak tests. Code review of tests. Asking "would this test fail if I broke X?" The discipline of test-first development. Coverage is a smoke detector, not a quality measure.
+Mock external systems (3rd-party APIs, paid services). Use real for things you own (your DB in integration tests, an in-memory fake of your DB in unit tests). Rule of thumb: mock at *system boundaries*, not internal interfaces. Mocking your own internal functions usually means tests are coupled to implementation.
 
-??? question "Q5: How would you test a function that depends on the current time?"
-    Inject a clock: `def func(now=time.time)` — pass a stub in tests. Or use `freezegun` / `time-machine` to monkey-patch the clock for the test's duration. Worst option: `time.sleep` in tests to wait for transitions — slow and flaky.
+</details>
+<details>
+<summary><strong>Q3: Why is `pytest.fixture(scope='session')` faster but riskier?</strong></summary>
 
-??? question "Q6: How do you make a flaky test reliable?"
-    Find the source of flakiness: (1) Order-dependence — isolate fixtures. (2) Timing — replace `sleep` with explicit synchronization (events, polling with timeout). (3) Randomness — seed it. (4) External services — replace with fake. (5) Concurrency races — actually fix the race. Quarantining flaky tests is a temporary hack; fix the root cause.
+Session-scoped fixtures are created once per pytest run, shared across all tests. Avoids repeated setup (e.g., DB connection). Risk: if a test mutates the fixture, later tests see the mutation — order dependence creeps in. Use session scope for *immutable* expensive resources; function scope for anything tests touch.
+
+</details>
+<details>
+<summary><strong>Q4: Coverage doesn't measure quality — what does?</strong></summary>
+
+Mutation testing (`mutmut`, `cosmic-ray`) — flips operators, deletes branches, runs tests. Surviving mutants = tests didn't catch the change = weak tests. Code review of tests. Asking "would this test fail if I broke X?" The discipline of test-first development. Coverage is a smoke detector, not a quality measure.
+
+</details>
+<details>
+<summary><strong>Q5: How would you test a function that depends on the current time?</strong></summary>
+
+Inject a clock: `def func(now=time.time)` — pass a stub in tests. Or use `freezegun` / `time-machine` to monkey-patch the clock for the test's duration. Worst option: `time.sleep` in tests to wait for transitions — slow and flaky.
+
+</details>
+<details>
+<summary><strong>Q6: How do you make a flaky test reliable?</strong></summary>
+
+Find the source of flakiness: (1) Order-dependence — isolate fixtures. (2) Timing — replace `sleep` with explicit synchronization (events, polling with timeout). (3) Randomness — seed it. (4) External services — replace with fake. (5) Concurrency races — actually fix the race. Quarantining flaky tests is a temporary hack; fix the root cause.
+
+</details>
 
 ## 🏗️ Scenarios
 

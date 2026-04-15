@@ -253,23 +253,42 @@ Never expose raw exception messages to external users — they leak internals (f
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Why is `except:` (bare except) considered bad?"
-    It catches *every* exception including `KeyboardInterrupt` and `SystemExit` — making the program unkillable from the keyboard and breaking shutdown. It also hides programming bugs (typos, missing imports) by catching `NameError`/`ImportError`. Use `except Exception:` if you really need broad handling.
+<details>
+<summary><strong>Q1: Why is `except:` (bare except) considered bad?</strong></summary>
 
-??? question "Q2: When do exceptions hurt performance?"
-    Raising/catching costs microseconds — fine for the rare case. Expensive in *very* tight loops or as control flow (`for x in iterable: try: ...`). Profile if suspicious. Common idiomatic exception (`StopIteration` ending a `for` loop) is optimized.
+It catches *every* exception including `KeyboardInterrupt` and `SystemExit` — making the program unkillable from the keyboard and breaking shutdown. It also hides programming bugs (typos, missing imports) by catching `NameError`/`ImportError`. Use `except Exception:` if you really need broad handling.
 
-??? question "Q3: What's wrong with `except Exception as e: log(e); raise`?"
-    Often nothing — if you're adding context. But: (1) The catch may be at the wrong layer (better to let it bubble to the request boundary). (2) Logging at every layer creates duplicate logs of the same error. (3) Without `from e` or context, you lose the original traceback when re-raising a different exception. Log *once* at the boundary; re-raise without modification deeper inside.
+</details>
+<details>
+<summary><strong>Q2: When do exceptions hurt performance?</strong></summary>
 
-??? question "Q4: When would you choose Result types over exceptions?"
-    For expected-failure cases where the type system should force callers to handle both outcomes (validation, parsing, lookup-or-default). Result types make failure paths visible in signatures (`Result[User, NotFound]` vs `User`). For exceptional cases (network down, programmer error), exceptions remain better — they bubble naturally.
+Raising/catching costs microseconds — fine for the rare case. Expensive in *very* tight loops or as control flow (`for x in iterable: try: ...`). Profile if suspicious. Common idiomatic exception (`StopIteration` ending a `for` loop) is optimized.
 
-??? question "Q5: How would you design retry behavior for an HTTP call?"
-    Three knobs: (1) **What to retry on** — connection errors, 5xx, 429 (rate limited). Never retry 4xx (it'll fail again). (2) **Backoff** — exponential with jitter, e.g., 1s, 2s, 4s, 8s ± random. (3) **Total budget** — max attempts AND max total time. Combine with circuit breaker for cascading failure protection. Ensure operations are idempotent or use idempotency keys.
+</details>
+<details>
+<summary><strong>Q3: What's wrong with `except Exception as e: log(e); raise`?</strong></summary>
 
-??? question "Q6: What does `raise X from e` do?"
-    Sets `X.__cause__ = e`. Tracebacks show both: 'During handling of [original], another exception occurred: [new]'. This preserves the root cause when you wrap an exception in a domain-specific one. Without `from`, Python sets `__context__` instead (still chained, but labeled differently — 'During handling… ').
+Often nothing — if you're adding context. But: (1) The catch may be at the wrong layer (better to let it bubble to the request boundary). (2) Logging at every layer creates duplicate logs of the same error. (3) Without `from e` or context, you lose the original traceback when re-raising a different exception. Log *once* at the boundary; re-raise without modification deeper inside.
+
+</details>
+<details>
+<summary><strong>Q4: When would you choose Result types over exceptions?</strong></summary>
+
+For expected-failure cases where the type system should force callers to handle both outcomes (validation, parsing, lookup-or-default). Result types make failure paths visible in signatures (`Result[User, NotFound]` vs `User`). For exceptional cases (network down, programmer error), exceptions remain better — they bubble naturally.
+
+</details>
+<details>
+<summary><strong>Q5: How would you design retry behavior for an HTTP call?</strong></summary>
+
+Three knobs: (1) **What to retry on** — connection errors, 5xx, 429 (rate limited). Never retry 4xx (it'll fail again). (2) **Backoff** — exponential with jitter, e.g., 1s, 2s, 4s, 8s ± random. (3) **Total budget** — max attempts AND max total time. Combine with circuit breaker for cascading failure protection. Ensure operations are idempotent or use idempotency keys.
+
+</details>
+<details>
+<summary><strong>Q6: What does `raise X from e` do?</strong></summary>
+
+Sets `X.__cause__ = e`. Tracebacks show both: 'During handling of [original], another exception occurred: [new]'. This preserves the root cause when you wrap an exception in a domain-specific one. Without `from`, Python sets `__context__` instead (still chained, but labeled differently — 'During handling… ').
+
+</details>
 
 ## 🏗️ Scenarios
 

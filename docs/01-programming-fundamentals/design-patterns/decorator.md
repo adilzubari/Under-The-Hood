@@ -188,33 +188,49 @@ Inheritance: every combination is a separate class. Decorator: combinations comp
 
 ## 🎯 Interview Questions
 
-??? question "Q1: What does `@functools.wraps` do and why is it important?"
-    Copies the wrapped function's metadata (name, docstring, module, annotations) to the wrapper. Without it, introspection tools (debuggers, doc generators, `help()`) all see `wrapper` instead of the real function. Test runners may also fail to discover decorated tests.
+<details>
+<summary><strong>Q1: What does `@functools.wraps` do and why is it important?</strong></summary>
 
-??? question "Q2: What's the difference between Decorator and Adapter?"
-    Both wrap an object. **Adapter** changes the *interface* — it bridges incompatibility (caller wants method `read()`, wrapped object has `download()`). **Decorator** keeps the *interface identical* and adds behavior. Adapter is structural translation; Decorator is structural augmentation.
+Copies the wrapped function's metadata (name, docstring, module, annotations) to the wrapper. Without it, introspection tools (debuggers, doc generators, `help()`) all see `wrapper` instead of the real function. Test runners may also fail to discover decorated tests.
 
-??? question "Q3: Decorator vs Subclassing?"
-    Subclassing is static: you commit at compile/definition time. Decorator is runtime: you stack any combination of responsibilities. Decorator avoids the combinatorial explosion of subclasses for every feature combination. Subclassing is fine when there's one obvious extension axis.
+</details>
+<details>
+<summary><strong>Q2: What's the difference between Decorator and Adapter?</strong></summary>
 
-??? question "Q4: How would you implement a decorator that respects async functions?"
-    Detect with `inspect.iscoroutinefunction` and return a coroutine wrapper:
-    ```python
-    import inspect, functools
-    def timed(fn):
-        if inspect.iscoroutinefunction(fn):
-            @functools.wraps(fn)
-            async def aw(*a, **kw):
-                t0 = time.perf_counter()
-                r = await fn(*a, **kw)
-                print(time.perf_counter() - t0)
-                return r
-            return aw
-        # sync version...
-    ```
+Both wrap an object. **Adapter** changes the *interface* — it bridges incompatibility (caller wants method `read()`, wrapped object has `download()`). **Decorator** keeps the *interface identical* and adds behavior. Adapter is structural translation; Decorator is structural augmentation.
 
-??? question "Q5: What order do stacked decorators apply?"
-    `@a` `@b` `def f(): ...` is equivalent to `f = a(b(f))`. So `b` wraps `f` first, then `a` wraps the result. At call time: `a` runs first (outermost), delegates to `b`, which delegates to `f`. Mnemonic: top decorators are outermost.
+</details>
+<details>
+<summary><strong>Q3: Decorator vs Subclassing?</strong></summary>
+
+Subclassing is static: you commit at compile/definition time. Decorator is runtime: you stack any combination of responsibilities. Decorator avoids the combinatorial explosion of subclasses for every feature combination. Subclassing is fine when there's one obvious extension axis.
+
+</details>
+<details>
+<summary><strong>Q4: How would you implement a decorator that respects async functions?</strong></summary>
+
+Detect with `inspect.iscoroutinefunction` and return a coroutine wrapper:
+```python
+import inspect, functools
+def timed(fn):
+    if inspect.iscoroutinefunction(fn):
+        @functools.wraps(fn)
+        async def aw(*a, **kw):
+            t0 = time.perf_counter()
+            r = await fn(*a, **kw)
+            print(time.perf_counter() - t0)
+            return r
+        return aw
+    # sync version...
+```
+
+</details>
+<details>
+<summary><strong>Q5: What order do stacked decorators apply?</strong></summary>
+
+`@a` `@b` `def f(): ...` is equivalent to `f = a(b(f))`. So `b` wraps `f` first, then `a` wraps the result. At call time: `a` runs first (outermost), delegates to `b`, which delegates to `f`. Mnemonic: top decorators are outermost.
+
+</details>
 
 ## 🏗️ Scenarios
 

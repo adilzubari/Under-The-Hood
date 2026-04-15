@@ -206,23 +206,42 @@ Small objects (<512 bytes) come from a custom allocator (`pymalloc`) that batche
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Why does Python need a GC if it has reference counting?"
-    Reference counting can't detect cycles: A holds B, B holds A — neither's refcount ever drops to zero. Without a cycle collector they'd leak forever. The generational GC's job is exclusively to find and free unreachable cycles. Refcount handles the easy 99% immediately; GC handles the cycles.
+<details>
+<summary><strong>Q1: Why does Python need a GC if it has reference counting?</strong></summary>
 
-??? question "Q2: How would you find a memory leak in a long-running service?"
-    1. Confirm growth: monitor RSS over time. 2. Snapshot with `tracemalloc.start()`; take snapshots at intervals; diff. 3. The diff shows where new allocations accumulated. 4. Check that line: is it appending to a global dict, registering a subscriber, caching without eviction? 5. Patch and re-measure. For production: `pyspy --memoryprofiler` against the live PID.
+Reference counting can't detect cycles: A holds B, B holds A — neither's refcount ever drops to zero. Without a cycle collector they'd leak forever. The generational GC's job is exclusively to find and free unreachable cycles. Refcount handles the easy 99% immediately; GC handles the cycles.
 
-??? question "Q3: When is `__slots__` worth using?"
-    When you create *millions* of similarly shaped objects (events, graph nodes, ML feature rows). Memory savings can be 30-50%, plus faster attribute access. Cost: no `__dict__` (can't dynamically add attributes), trickier inheritance (must declare in every subclass or `__dict__` reappears), no `weakref` unless you also list `__weakref__` in slots.
+</details>
+<details>
+<summary><strong>Q2: How would you find a memory leak in a long-running service?</strong></summary>
 
-??? question "Q4: Closures and memory — what's the gotcha?"
-    A closure captures the *enclosing scope's variables by reference*. If a local function is created inside `make_handler(big_data)`, the closure pins `big_data` in memory for as long as the function lives. Pull out only what you need before defining the inner function.
+1. Confirm growth: monitor RSS over time. 2. Snapshot with `tracemalloc.start()`; take snapshots at intervals; diff. 3. The diff shows where new allocations accumulated. 4. Check that line: is it appending to a global dict, registering a subscriber, caching without eviction? 5. Patch and re-measure. For production: `pyspy --memoryprofiler` against the live PID.
 
-??? question "Q5: What does `gc.collect()` actually do?"
-    Triggers a full cycle-collection pass: walks objects in tracked containers, identifies cycles unreachable from the root, frees them. It does *not* affect refcount-managed objects (those are already freed). Forcing it is rarely useful — let the GC trigger naturally; reach for it only when you know you've broken a big cycle and want immediate cleanup.
+</details>
+<details>
+<summary><strong>Q3: When is `__slots__` worth using?</strong></summary>
 
-??? question "Q6: Why does my Python process not give memory back to the OS?"
-    `pymalloc` batches small allocations into arenas. An arena returns to the OS only when *all* its pools are free. Fragmentation can leave a few used objects scattered across many arenas, pinning them. The Python *process* may show high RSS even though the heap has lots of free pools. Often nothing to do — restart cycles, or use a process manager that recycles workers periodically (gunicorn `--max-requests`).
+When you create *millions* of similarly shaped objects (events, graph nodes, ML feature rows). Memory savings can be 30-50%, plus faster attribute access. Cost: no `__dict__` (can't dynamically add attributes), trickier inheritance (must declare in every subclass or `__dict__` reappears), no `weakref` unless you also list `__weakref__` in slots.
+
+</details>
+<details>
+<summary><strong>Q4: Closures and memory — what's the gotcha?</strong></summary>
+
+A closure captures the *enclosing scope's variables by reference*. If a local function is created inside `make_handler(big_data)`, the closure pins `big_data` in memory for as long as the function lives. Pull out only what you need before defining the inner function.
+
+</details>
+<details>
+<summary><strong>Q5: What does `gc.collect()` actually do?</strong></summary>
+
+Triggers a full cycle-collection pass: walks objects in tracked containers, identifies cycles unreachable from the root, frees them. It does *not* affect refcount-managed objects (those are already freed). Forcing it is rarely useful — let the GC trigger naturally; reach for it only when you know you've broken a big cycle and want immediate cleanup.
+
+</details>
+<details>
+<summary><strong>Q6: Why does my Python process not give memory back to the OS?</strong></summary>
+
+`pymalloc` batches small allocations into arenas. An arena returns to the OS only when *all* its pools are free. Fragmentation can leave a few used objects scattered across many arenas, pinning them. The Python *process* may show high RSS even though the heap has lots of free pools. Often nothing to do — restart cycles, or use a process manager that recycles workers periodically (gunicorn `--max-requests`).
+
+</details>
 
 ## 🏗️ Scenarios
 

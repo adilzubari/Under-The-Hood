@@ -233,26 +233,48 @@ asyncio wins for high-fanout I/O. Threading wins for retrofitting concurrency in
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Concurrency vs parallelism?"
-    Concurrency is *structuring* a program so multiple tasks can be in progress (overlapping in time). Parallelism is *executing* them literally simultaneously on multiple cores. Concurrent code may or may not be parallel; parallel code is necessarily concurrent. Python `threading` is concurrency without parallelism (for Python code) due to the GIL; `multiprocessing` gives both.
+<details>
+<summary><strong>Q1: Concurrency vs parallelism?</strong></summary>
 
-??? question "Q2: Why doesn't threading speed up CPU-bound Python?"
-    The GIL serializes Python bytecode execution. Two threads doing pure Python compute fight for the GIL — only one runs at a time. Net result: same throughput as single-threaded plus context-switch overhead. For CPU work, use `multiprocessing`, NumPy/C extensions (which release the GIL), or wait for free-threading Python (PEP 703, in progress).
+Concurrency is *structuring* a program so multiple tasks can be in progress (overlapping in time). Parallelism is *executing* them literally simultaneously on multiple cores. Concurrent code may or may not be parallel; parallel code is necessarily concurrent. Python `threading` is concurrency without parallelism (for Python code) due to the GIL; `multiprocessing` gives both.
 
-??? question "Q3: When is asyncio faster than threads?"
-    Two scenarios: (1) Very high concurrency (10k+ tasks) — coroutines are cheap, threads aren't. (2) Tight, switch-heavy I/O — async context switches are µs, kernel thread switches are ms. For modest concurrency (say 50 calls), the difference is small; pick by code style.
+</details>
+<details>
+<summary><strong>Q2: Why doesn't threading speed up CPU-bound Python?</strong></summary>
 
-??? question "Q4: How would you fix code that blocks the event loop?"
-    Identify the blocking call (sync HTTP, file I/O, big compute). Then either: replace with the async version (`httpx` instead of `requests`), wrap in `asyncio.to_thread` (offloads to a worker thread), or move CPU work to a `ProcessPoolExecutor` via `loop.run_in_executor`.
+The GIL serializes Python bytecode execution. Two threads doing pure Python compute fight for the GIL — only one runs at a time. Net result: same throughput as single-threaded plus context-switch overhead. For CPU work, use `multiprocessing`, NumPy/C extensions (which release the GIL), or wait for free-threading Python (PEP 703, in progress).
 
-??? question "Q5: What's a race condition? Give an example."
-    Two or more concurrent operations whose interleaving determines the outcome — and the interleaving isn't controlled. Classic: two threads each read `counter`, both add 1, both write — counter went up by 1 instead of 2. Fix with a lock around the read-modify-write, or use atomic primitives, or design out shared mutable state.
+</details>
+<details>
+<summary><strong>Q3: When is asyncio faster than threads?</strong></summary>
 
-??? question "Q6: How do you cancel an asyncio task safely?"
-    Call `task.cancel()` — this raises `CancelledError` inside the task at its next `await`. Always handle it in `try/except` to clean up resources, then re-raise. Use `asyncio.shield(task)` to protect critical work from cancellation. Always `await task` after cancellation to actually wait for cleanup.
+Two scenarios: (1) Very high concurrency (10k+ tasks) — coroutines are cheap, threads aren't. (2) Tight, switch-heavy I/O — async context switches are µs, kernel thread switches are ms. For modest concurrency (say 50 calls), the difference is small; pick by code style.
 
-??? question "Q7: Will Python ever remove the GIL?"
-    Work in progress. PEP 703 (Free-threaded CPython) is being rolled out (3.13 has experimental support, becoming default later). For now, the GIL is here. Workarounds: multiprocessing, async, GIL-releasing C extensions.
+</details>
+<details>
+<summary><strong>Q4: How would you fix code that blocks the event loop?</strong></summary>
+
+Identify the blocking call (sync HTTP, file I/O, big compute). Then either: replace with the async version (`httpx` instead of `requests`), wrap in `asyncio.to_thread` (offloads to a worker thread), or move CPU work to a `ProcessPoolExecutor` via `loop.run_in_executor`.
+
+</details>
+<details>
+<summary><strong>Q5: What's a race condition? Give an example.</strong></summary>
+
+Two or more concurrent operations whose interleaving determines the outcome — and the interleaving isn't controlled. Classic: two threads each read `counter`, both add 1, both write — counter went up by 1 instead of 2. Fix with a lock around the read-modify-write, or use atomic primitives, or design out shared mutable state.
+
+</details>
+<details>
+<summary><strong>Q6: How do you cancel an asyncio task safely?</strong></summary>
+
+Call `task.cancel()` — this raises `CancelledError` inside the task at its next `await`. Always handle it in `try/except` to clean up resources, then re-raise. Use `asyncio.shield(task)` to protect critical work from cancellation. Always `await task` after cancellation to actually wait for cleanup.
+
+</details>
+<details>
+<summary><strong>Q7: Will Python ever remove the GIL?</strong></summary>
+
+Work in progress. PEP 703 (Free-threaded CPython) is being rolled out (3.13 has experimental support, becoming default later). For now, the GIL is here. Workarounds: multiprocessing, async, GIL-releasing C extensions.
+
+</details>
 
 ## 🏗️ Scenarios
 

@@ -222,23 +222,42 @@ Rule: would a future operator at 3am thank you for this log? If no, drop it.
 
 ## 🎯 Interview Questions
 
-??? question "Q1: What are the three pillars of observability?"
-    Logs (discrete events with context), metrics (aggregates over time, used for dashboards and alerts), traces (causally-linked spans across a request, often across services). Each answers different questions: logs = "what happened?", metrics = "how much / how often?", traces = "where did the time go?". A trace ID propagated everywhere stitches all three.
+<details>
+<summary><strong>Q1: What are the three pillars of observability?</strong></summary>
 
-??? question "Q2: Why structured (JSON) logs over plain text?"
-    Search: `level=ERROR AND user_id=u1` is a query, not a regex. Aggregation: count errors by endpoint without parsing. Field type preservation: durations stay numeric, not strings. Tooling: every log platform (ELK, Loki, Datadog) understands JSON. Once you've used structured logs in production, plain-text feels primitive.
+Logs (discrete events with context), metrics (aggregates over time, used for dashboards and alerts), traces (causally-linked spans across a request, often across services). Each answers different questions: logs = "what happened?", metrics = "how much / how often?", traces = "where did the time go?". A trace ID propagated everywhere stitches all three.
 
-??? question "Q3: How do you propagate a correlation ID across services?"
-    Generate at the edge (load balancer, API gateway, or first service). Pass downstream in a header (`X-Request-ID` or W3C `traceparent`). Each service includes it in every log line and forwards it on. In Python, store it in `contextvars` so it's available without threading it through every function — async-safe and inheritance-friendly.
+</details>
+<details>
+<summary><strong>Q2: Why structured (JSON) logs over plain text?</strong></summary>
 
-??? question "Q4: Logs vs metrics vs traces — when do you reach for each?"
-    Metrics for dashboards and alerts (high cardinality is expensive — keep it bounded). Logs for forensic detail when you need full context. Traces for diagnosing latency: which step took the time? Anti-pattern: counting things in logs and grep-ing them later. Use metrics for counting; logs for context.
+Search: `level=ERROR AND user_id=u1` is a query, not a regex. Aggregation: count errors by endpoint without parsing. Field type preservation: durations stay numeric, not strings. Tooling: every log platform (ELK, Loki, Datadog) understands JSON. Once you've used structured logs in production, plain-text feels primitive.
 
-??? question "Q5: What's the difference between `logger.error('...')` and `logger.exception('...')`?"
-    `exception()` is `error(exc_info=True)` — it includes the traceback. Only valid inside an `except:` block. `error()` without traceback is for "operation failed" reports where you don't have an exception object (or don't want the trace).
+</details>
+<details>
+<summary><strong>Q3: How do you propagate a correlation ID across services?</strong></summary>
 
-??? question "Q6: How would you redact PII before logging?"
-    Several approaches: (1) Filter at the logger level — a `logging.Filter` that scans records for sensitive patterns and redacts. (2) Wrapper around the log call that redacts known fields. (3) Type-system enforced — use `Secret[str]` newtype that has a `__repr__` returning `***`. Layered defense: type-system + filter as a safety net. Never log entire request bodies without filtering.
+Generate at the edge (load balancer, API gateway, or first service). Pass downstream in a header (`X-Request-ID` or W3C `traceparent`). Each service includes it in every log line and forwards it on. In Python, store it in `contextvars` so it's available without threading it through every function — async-safe and inheritance-friendly.
+
+</details>
+<details>
+<summary><strong>Q4: Logs vs metrics vs traces — when do you reach for each?</strong></summary>
+
+Metrics for dashboards and alerts (high cardinality is expensive — keep it bounded). Logs for forensic detail when you need full context. Traces for diagnosing latency: which step took the time? Anti-pattern: counting things in logs and grep-ing them later. Use metrics for counting; logs for context.
+
+</details>
+<details>
+<summary><strong>Q5: What's the difference between `logger.error('...')` and `logger.exception('...')`?</strong></summary>
+
+`exception()` is `error(exc_info=True)` — it includes the traceback. Only valid inside an `except:` block. `error()` without traceback is for "operation failed" reports where you don't have an exception object (or don't want the trace).
+
+</details>
+<details>
+<summary><strong>Q6: How would you redact PII before logging?</strong></summary>
+
+Several approaches: (1) Filter at the logger level — a `logging.Filter` that scans records for sensitive patterns and redacts. (2) Wrapper around the log call that redacts known fields. (3) Type-system enforced — use `Secret[str]` newtype that has a `__repr__` returning `***`. Layered defense: type-system + filter as a safety net. Never log entire request bodies without filtering.
+
+</details>
 
 ## 🏗️ Scenarios
 

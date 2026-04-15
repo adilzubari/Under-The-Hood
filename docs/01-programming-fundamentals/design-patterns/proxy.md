@@ -173,20 +173,36 @@ class LoggingProxy:
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Proxy vs Decorator — same shape, what's different?"
-    Both wrap and forward. **Decorator** adds behavior to enrich the wrapped object (logging, retries). **Proxy** controls access to it (lazy load, auth check, remote call, caching). Intent matters, not structure. A logging Decorator and a logging Proxy can look identical — the question is whether you're augmenting or gatekeeping.
+<details>
+<summary><strong>Q1: Proxy vs Decorator — same shape, what's different?</strong></summary>
 
-??? question "Q2: When is a remote Proxy a leaky abstraction?"
-    When callers don't know they're paying network cost. A `user.email` access that quietly hits a remote service can ruin a tight loop. Mitigations: explicit method names (`fetch_email()` not property), batch APIs, preload patterns, latency budgets per call.
+Both wrap and forward. **Decorator** adds behavior to enrich the wrapped object (logging, retries). **Proxy** controls access to it (lazy load, auth check, remote call, caching). Intent matters, not structure. A logging Decorator and a logging Proxy can look identical — the question is whether you're augmenting or gatekeeping.
 
-??? question "Q3: Protection proxy vs middleware?"
-    Protection proxy operates at the object level (per method). Middleware operates at the request boundary (per HTTP request). For coarse access control, middleware. For fine-grained control across many call sites, a proxy keeps the logic in one place.
+</details>
+<details>
+<summary><strong>Q2: When is a remote Proxy a leaky abstraction?</strong></summary>
 
-??? question "Q4: How does Python's `__getattr__` enable transparent proxies?"
-    `__getattr__(self, name)` is invoked when normal lookup fails. By forwarding to a wrapped object inside it, you proxy every attribute without explicitly listing them. Combined with `__setattr__` for writes, you get a full transparent proxy. Trade-off: IDE autocomplete and static type checkers can't see the proxied attributes.
+When callers don't know they're paying network cost. A `user.email` access that quietly hits a remote service can ruin a tight loop. Mitigations: explicit method names (`fetch_email()` not property), batch APIs, preload patterns, latency budgets per call.
 
-??? question "Q5: Virtual proxy vs lazy property?"
-    `@property` lazy-init is a one-attribute version: compute once, cache, return. Virtual proxy wraps the *whole object*: the surrogate IS the contact point until the heavy real subject is needed. Use `@property` for one-attribute lazy values; virtual proxy when even *constructing* the real object is expensive.
+</details>
+<details>
+<summary><strong>Q3: Protection proxy vs middleware?</strong></summary>
+
+Protection proxy operates at the object level (per method). Middleware operates at the request boundary (per HTTP request). For coarse access control, middleware. For fine-grained control across many call sites, a proxy keeps the logic in one place.
+
+</details>
+<details>
+<summary><strong>Q4: How does Python's `__getattr__` enable transparent proxies?</strong></summary>
+
+`__getattr__(self, name)` is invoked when normal lookup fails. By forwarding to a wrapped object inside it, you proxy every attribute without explicitly listing them. Combined with `__setattr__` for writes, you get a full transparent proxy. Trade-off: IDE autocomplete and static type checkers can't see the proxied attributes.
+
+</details>
+<details>
+<summary><strong>Q5: Virtual proxy vs lazy property?</strong></summary>
+
+`@property` lazy-init is a one-attribute version: compute once, cache, return. Virtual proxy wraps the *whole object*: the surrogate IS the contact point until the heavy real subject is needed. Use `@property` for one-attribute lazy values; virtual proxy when even *constructing* the real object is expensive.
+
+</details>
 
 ## 🏗️ Scenarios
 

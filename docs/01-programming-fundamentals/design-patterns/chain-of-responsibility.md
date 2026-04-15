@@ -167,20 +167,36 @@ Every check runs (or stops on the first exception).
 
 ## 🎯 Interview Questions
 
-??? question "Q1: CoR vs Decorator — both are about composition?"
-    Both wrap handlers around a core. Difference: **Decorator** wraps *one* object to add behavior to *every* call; the call site is fixed. **CoR** routes a request through a *sequence*, and any handler can short-circuit, transform, or skip. Decorators stack on a single target; CoR is a pipeline whose order and members are explicit.
+<details>
+<summary><strong>Q1: CoR vs Decorator — both are about composition?</strong></summary>
 
-??? question "Q2: How does Express/FastAPI middleware implement CoR?"
-    Each middleware receives `(request, next)` and decides whether to call `next` (pass to the next layer), short-circuit (return a response directly), or transform the request before passing. Order of registration = order of execution. Authentication runs early; logging often wraps around (logs request and response).
+Both wrap handlers around a core. Difference: **Decorator** wraps *one* object to add behavior to *every* call; the call site is fixed. **CoR** routes a request through a *sequence*, and any handler can short-circuit, transform, or skip. Decorators stack on a single target; CoR is a pipeline whose order and members are explicit.
 
-??? question "Q3: When would 'first match wins' be wrong?"
-    When all handlers must contribute. Validation, security checks, audit logs — every layer must run. Use a pipeline where each handler can fail (raise), but none short-circuits success.
+</details>
+<details>
+<summary><strong>Q2: How does Express/FastAPI middleware implement CoR?</strong></summary>
 
-??? question "Q4: How do you debug a long CoR chain in production?"
-    (1) Log entry/exit per handler with a request/correlation ID. (2) Make the chain configuration visible (e.g., `app.middleware()` registration list). (3) Add a `dry_run` mode that logs which handler would have processed without executing. (4) Distributed tracing (OpenTelemetry spans per handler).
+Each middleware receives `(request, next)` and decides whether to call `next` (pass to the next layer), short-circuit (return a response directly), or transform the request before passing. Order of registration = order of execution. Authentication runs early; logging often wraps around (logs request and response).
 
-??? question "Q5: How does CoR relate to event-driven architectures?"
-    CoR is in-process and ordered; events (Observer / pub-sub) are typically broadcast and unordered. CoR handlers know they're in a sequence and may transform the request. Event subscribers are independent and don't know about each other. CoR is "pipeline"; events are "broadcast."
+</details>
+<details>
+<summary><strong>Q3: When would 'first match wins' be wrong?</strong></summary>
+
+When all handlers must contribute. Validation, security checks, audit logs — every layer must run. Use a pipeline where each handler can fail (raise), but none short-circuits success.
+
+</details>
+<details>
+<summary><strong>Q4: How do you debug a long CoR chain in production?</strong></summary>
+
+(1) Log entry/exit per handler with a request/correlation ID. (2) Make the chain configuration visible (e.g., `app.middleware()` registration list). (3) Add a `dry_run` mode that logs which handler would have processed without executing. (4) Distributed tracing (OpenTelemetry spans per handler).
+
+</details>
+<details>
+<summary><strong>Q5: How does CoR relate to event-driven architectures?</strong></summary>
+
+CoR is in-process and ordered; events (Observer / pub-sub) are typically broadcast and unordered. CoR handlers know they're in a sequence and may transform the request. Event subscribers are independent and don't know about each other. CoR is "pipeline"; events are "broadcast."
+
+</details>
 
 ## 🏗️ Scenarios
 

@@ -135,20 +135,36 @@ Adding a new option forces editing this function (OCP violation). Tests for one 
 
 ## 🎯 Interview Questions
 
-??? question "Q1: When would you choose Strategy over inheritance?"
-    When the variation is *behavioral* (an algorithm) rather than *structural* (an entity type). Inheritance bundles state + behavior; Strategy isolates behavior so you can swap it without touching the entity. Strategy also avoids inheritance's brittleness — adding a variant doesn't require subclassing the host class.
+<details>
+<summary><strong>Q1: When would you choose Strategy over inheritance?</strong></summary>
 
-??? question "Q2: Strategy vs State pattern?"
-    Both have an object delegating to a polymorphic helper. Difference: **Strategy** is chosen *externally* and is typically stable for the object's lifetime. **State** transitions internally based on events; the object swaps its own state in response to inputs. Strategy is "what algorithm should I use?"; State is "what mode am I in?".
+When the variation is *behavioral* (an algorithm) rather than *structural* (an entity type). Inheritance bundles state + behavior; Strategy isolates behavior so you can swap it without touching the entity. Strategy also avoids inheritance's brittleness — adding a variant doesn't require subclassing the host class.
 
-??? question "Q3: Is `sorted(items, key=...)` an example of Strategy?"
-    Yes — `key` is a strategy function that customizes how items are compared. `cmp_to_key` likewise. Built-in Pythonic Strategy.
+</details>
+<details>
+<summary><strong>Q2: Strategy vs State pattern?</strong></summary>
 
-??? question "Q4: How do you test a class that uses Strategy?"
-    Pass in fake/stub strategies. The class becomes trivially unit-testable without mocking — you control the strategy's return value directly. This is one of Strategy's biggest wins.
+Both have an object delegating to a polymorphic helper. Difference: **Strategy** is chosen *externally* and is typically stable for the object's lifetime. **State** transitions internally based on events; the object swaps its own state in response to inputs. Strategy is "what algorithm should I use?"; State is "what mode am I in?".
 
-??? question "Q5: Strategy and Open/Closed Principle?"
-    Strategy IS OCP applied. The host class is *closed* — you don't edit it to add behavior. The strategy interface is *open* — anyone can implement it for new variants. Adding a new shipping option = new function/class, no host changes.
+</details>
+<details>
+<summary><strong>Q3: Is `sorted(items, key=...)` an example of Strategy?</strong></summary>
+
+Yes — `key` is a strategy function that customizes how items are compared. `cmp_to_key` likewise. Built-in Pythonic Strategy.
+
+</details>
+<details>
+<summary><strong>Q4: How do you test a class that uses Strategy?</strong></summary>
+
+Pass in fake/stub strategies. The class becomes trivially unit-testable without mocking — you control the strategy's return value directly. This is one of Strategy's biggest wins.
+
+</details>
+<details>
+<summary><strong>Q5: Strategy and Open/Closed Principle?</strong></summary>
+
+Strategy IS OCP applied. The host class is *closed* — you don't edit it to add behavior. The strategy interface is *open* — anyone can implement it for new variants. Adding a new shipping option = new function/class, no host changes.
+
+</details>
 
 ## 🏗️ Scenarios
 

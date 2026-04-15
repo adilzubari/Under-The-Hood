@@ -137,20 +137,36 @@ The double-check avoids locking on every access after initialization.
 
 ## 🎯 Interview Questions
 
-??? question "Q1: What problems does Singleton solve, and what new ones does it create?"
-    Solves: enforce a single instance for a shared resource, provide global access. Creates: hidden global state (callers can't see the dependency in their signatures), tests pollute each other (singleton state survives), tight coupling (any code can grab it), inheritance is awkward (subclass instances would each be singletons of themselves).
+<details>
+<summary><strong>Q1: What problems does Singleton solve, and what new ones does it create?</strong></summary>
 
-??? question "Q2: Why is `import` already a Singleton mechanism in Python?"
-    `sys.modules` caches modules after first import. Subsequent `import config` returns the same module object globally. So a module with module-level state IS a singleton — you don't need a class for it.
+Solves: enforce a single instance for a shared resource, provide global access. Creates: hidden global state (callers can't see the dependency in their signatures), tests pollute each other (singleton state survives), tight coupling (any code can grab it), inheritance is awkward (subclass instances would each be singletons of themselves).
 
-??? question "Q3: How would you make a Singleton thread-safe?"
-    Double-checked locking: check, lock, check again, create. The outer check avoids lock contention on the hot path; the inner check prevents two threads both creating an instance during the brief window between first-check and acquiring the lock. Or use `threading.Lock` to protect creation, or initialize at module load time so creation happens during the import lock.
+</details>
+<details>
+<summary><strong>Q2: Why is `import` already a Singleton mechanism in Python?</strong></summary>
 
-??? question "Q4: Why do testers hate Singletons?"
-    State leaks between tests: test A mutates the singleton; test B sees the mutated state. You can't easily inject a fake. You can't run tests in parallel safely. Workaround: provide a `reset()` classmethod and call it in `setUp`/`tearDown`, or refactor to DI.
+`sys.modules` caches modules after first import. Subsequent `import config` returns the same module object globally. So a module with module-level state IS a singleton — you don't need a class for it.
 
-??? question "Q5: Singleton vs Borg pattern?"
-    Singleton enforces *one instance*. Borg (a Python idiom) enforces *shared state* across many instances by setting `__dict__` to a class-level dict. Borg is friendlier to inheritance and identity checks (`s1 is s2` is False but `s1.__dict__ is s2.__dict__` is True). Both solve "shared state"; Borg is less common today.
+</details>
+<details>
+<summary><strong>Q3: How would you make a Singleton thread-safe?</strong></summary>
+
+Double-checked locking: check, lock, check again, create. The outer check avoids lock contention on the hot path; the inner check prevents two threads both creating an instance during the brief window between first-check and acquiring the lock. Or use `threading.Lock` to protect creation, or initialize at module load time so creation happens during the import lock.
+
+</details>
+<details>
+<summary><strong>Q4: Why do testers hate Singletons?</strong></summary>
+
+State leaks between tests: test A mutates the singleton; test B sees the mutated state. You can't easily inject a fake. You can't run tests in parallel safely. Workaround: provide a `reset()` classmethod and call it in `setUp`/`tearDown`, or refactor to DI.
+
+</details>
+<details>
+<summary><strong>Q5: Singleton vs Borg pattern?</strong></summary>
+
+Singleton enforces *one instance*. Borg (a Python idiom) enforces *shared state* across many instances by setting `__dict__` to a class-level dict. Borg is friendlier to inheritance and identity checks (`s1 is s2` is False but `s1.__dict__ is s2.__dict__` is True). Both solve "shared state"; Borg is less common today.
+
+</details>
 
 ## 🏗️ Scenarios
 

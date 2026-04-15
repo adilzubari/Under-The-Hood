@@ -191,20 +191,36 @@ The class no longer declares its needs in its signature. Tests have to set up th
 
 ## 🎯 Interview Questions
 
-??? question "Q1: What problem does DI solve?"
-    Tight coupling between a class and its dependencies. Without DI, classes construct their own deps — making them un-testable (can't substitute fakes), un-swappable (can't change implementations), and harder to configure (deps' config leaks in). DI moves construction *out* so the class only declares what it needs.
+<details>
+<summary><strong>Q1: What problem does DI solve?</strong></summary>
 
-??? question "Q2: DI vs Service Locator — both let you swap implementations?"
-    DI: dependencies appear in the class's constructor signature — visible. Service Locator: the class asks a global registry, hiding the dependency. Visibility matters: with DI you can read a class and immediately know its surface area. Service Locator makes refactoring and testing harder.
+Tight coupling between a class and its dependencies. Without DI, classes construct their own deps — making them un-testable (can't substitute fakes), un-swappable (can't change implementations), and harder to configure (deps' config leaks in). DI moves construction *out* so the class only declares what it needs.
 
-??? question "Q3: Why is constructor injection preferred over setter injection?"
-    Constructor injection makes dependencies *required* — the object can't exist in an invalid state. Setter injection allows half-built objects (`new Foo(); foo.set_db(...) — oops, forgot one`). Constructor also makes the dependency list explicit in one place.
+</details>
+<details>
+<summary><strong>Q2: DI vs Service Locator — both let you swap implementations?</strong></summary>
 
-??? question "Q4: How does FastAPI's `Depends` differ from a heavyweight DI container?"
-    FastAPI's `Depends` is request-scoped, declarative, and tied to the framework's request lifecycle. It's a tiny container with one convention. A general DI container (like `dependency-injector`) handles broader lifecycles (singletons across the app), config loading, and isn't tied to a web framework. For most FastAPI apps, `Depends` is enough.
+DI: dependencies appear in the class's constructor signature — visible. Service Locator: the class asks a global registry, hiding the dependency. Visibility matters: with DI you can read a class and immediately know its surface area. Service Locator makes refactoring and testing harder.
 
-??? question "Q5: What's a 'composition root' and why does it matter?"
-    The single place where the application wires its object graph — typically `main.py` or `app.py`. Centralizing wiring there means: one file shows your architecture, swap a dependency by changing one line, no class deeper in the codebase needs to know how dependencies are constructed. Don't let `new`/constructor calls for major dependencies leak into the deeper code.
+</details>
+<details>
+<summary><strong>Q3: Why is constructor injection preferred over setter injection?</strong></summary>
+
+Constructor injection makes dependencies *required* — the object can't exist in an invalid state. Setter injection allows half-built objects (`new Foo(); foo.set_db(...) — oops, forgot one`). Constructor also makes the dependency list explicit in one place.
+
+</details>
+<details>
+<summary><strong>Q4: How does FastAPI's `Depends` differ from a heavyweight DI container?</strong></summary>
+
+FastAPI's `Depends` is request-scoped, declarative, and tied to the framework's request lifecycle. It's a tiny container with one convention. A general DI container (like `dependency-injector`) handles broader lifecycles (singletons across the app), config loading, and isn't tied to a web framework. For most FastAPI apps, `Depends` is enough.
+
+</details>
+<details>
+<summary><strong>Q5: What's a 'composition root' and why does it matter?</strong></summary>
+
+The single place where the application wires its object graph — typically `main.py` or `app.py`. Centralizing wiring there means: one file shows your architecture, swap a dependency by changing one line, no class deeper in the codebase needs to know how dependencies are constructed. Don't let `new`/constructor calls for major dependencies leak into the deeper code.
+
+</details>
 
 ## 🏗️ Scenarios
 

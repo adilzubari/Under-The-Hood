@@ -204,24 +204,40 @@ Both `OrderService` and `MySQLDatabase` depend on the *interface* — neither ow
 
 ## 🎯 Interview Questions
 
-??? question "Q1: Explain SOLID in one sentence each."
-    - **S**RP: One reason to change per class.
-    - **O**CP: Add behavior by writing new code, not editing old code.
-    - **L**SP: Subtypes must honor the base type's contract.
-    - **I**SP: Many small interfaces beat one fat interface.
-    - **D**IP: Depend on abstractions, not concrete classes.
+<details>
+<summary><strong>Q1: Explain SOLID in one sentence each.</strong></summary>
 
-??? question "Q2: Composition vs inheritance — when do you use each?"
-    Use **inheritance** for true *is-a* relationships where the subclass honors the parent's full contract (Liskov-safe). Use **composition** (HAS-A) for everything else: behavior reuse, mix-in features, swappable strategies. Modern guidance: prefer composition by default; reach for inheritance only when polymorphism through a base type genuinely simplifies callers. Inheritance creates tight coupling — you can't change the parent without breaking children.
+- **S**RP: One reason to change per class.
+- **O**CP: Add behavior by writing new code, not editing old code.
+- **L**SP: Subtypes must honor the base type's contract.
+- **I**SP: Many small interfaces beat one fat interface.
+- **D**IP: Depend on abstractions, not concrete classes.
 
-??? question "Q3: Give a real LSP violation you've seen."
-    Common one: a `ReadOnlyList` subclass of `List` that throws on `append`. Anywhere code does `list.append(x)` expecting it to work, passing a `ReadOnlyList` breaks the contract — LSP violated. Fix: don't subclass; model `ReadOnly` and `Mutable` as separate types or use composition.
+</details>
+<details>
+<summary><strong>Q2: Composition vs inheritance — when do you use each?</strong></summary>
 
-??? question "Q4: How does Python's duck typing relate to ISP and DIP?"
-    Duck typing makes ISP and DIP cheap: you don't need to declare formal interfaces. Any object with the right methods works. The downside: contracts are implicit. `typing.Protocol` (PEP 544) gives you the best of both — structural typing with type-checker-enforced contracts, no explicit `implements` clause needed.
+Use **inheritance** for true *is-a* relationships where the subclass honors the parent's full contract (Liskov-safe). Use **composition** (HAS-A) for everything else: behavior reuse, mix-in features, swappable strategies. Modern guidance: prefer composition by default; reach for inheritance only when polymorphism through a base type genuinely simplifies callers. Inheritance creates tight coupling — you can't change the parent without breaking children.
 
-??? question "Q5: Encapsulation in Python without `private` keywords?"
-    Convention + `_underscore` (private by convention), `__double_underscore` (name-mangled), `@property` for read-only or computed access. Python trusts the developer ("we're all consenting adults") rather than enforcing access at the language level. Use `@dataclass(frozen=True)` for immutable records.
+</details>
+<details>
+<summary><strong>Q3: Give a real LSP violation you've seen.</strong></summary>
+
+Common one: a `ReadOnlyList` subclass of `List` that throws on `append`. Anywhere code does `list.append(x)` expecting it to work, passing a `ReadOnlyList` breaks the contract — LSP violated. Fix: don't subclass; model `ReadOnly` and `Mutable` as separate types or use composition.
+
+</details>
+<details>
+<summary><strong>Q4: How does Python's duck typing relate to ISP and DIP?</strong></summary>
+
+Duck typing makes ISP and DIP cheap: you don't need to declare formal interfaces. Any object with the right methods works. The downside: contracts are implicit. `typing.Protocol` (PEP 544) gives you the best of both — structural typing with type-checker-enforced contracts, no explicit `implements` clause needed.
+
+</details>
+<details>
+<summary><strong>Q5: Encapsulation in Python without `private` keywords?</strong></summary>
+
+Convention + `_underscore` (private by convention), `__double_underscore` (name-mangled), `@property` for read-only or computed access. Python trusts the developer ("we're all consenting adults") rather than enforcing access at the language level. Use `@dataclass(frozen=True)` for immutable records.
+
+</details>
 
 ## 🏗️ Scenarios
 
