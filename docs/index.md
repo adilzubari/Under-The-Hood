@@ -1,8 +1,6 @@
 # Under The Hood
 
-A personal software engineering knowledge base — concepts, deep dives, and **interactive interview prep**.
-
-> Built for two audiences: my future self refreshing a topic before an interview, and any dev who wants a clean reference. Browse on GitHub or run the MkDocs site locally — both work.
+A single-source software engineering knowledge base — concepts, deep dives, and **interactive interview prep**. Consumed directly on GitHub. No setup, no clone, no install.
 
 ## How to use this site
 
@@ -13,10 +11,13 @@ Open any topic. Skip to **Interview Questions** at the bottom. Each question is 
 Read top-to-bottom: **TL;DR → Concept Overview → Deep Dive**. The Deep Dive has runnable Python examples and Mermaid diagrams.
 
 ### 🔍 Looking something up
-Use the search bar (top-right or press <kbd>/</kbd>) when running locally. On GitHub, use repo search.
+Use GitHub's repo search: press <kbd>/</kbd> or <kbd>t</kbd> anywhere on the repo to search across every file.
 
 ### 🏗️ Practicing system design
 Go to the [Scenarios Bank](scenarios-bank/index.md). Each scenario walks through a realistic design problem (constraints → approach → solution → trade-offs).
+
+### 📊 Tracking progress
+See the [Progress Dashboard](progress.md) for phase-by-phase completion status.
 
 ---
 
@@ -52,3 +53,4 @@ Go to the [Scenarios Bank](scenarios-bank/index.md). Each scenario walks through
 - 🎯 **[Interview Bank](interview-bank/index.md)** — every Q&A, indexed by difficulty and topic.
 - 🏗️ **[Scenarios Bank](scenarios-bank/index.md)** — system-design problems that span multiple phases.
 - 📖 **[Glossary](glossary.md)** — quick definitions linked to deep dives.
+- 📊 **[Progress Dashboard](progress.md)** — phase completion status.

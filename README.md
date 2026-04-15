@@ -1,33 +1,8 @@
 # Under The Hood
 
-> A personal software engineering knowledge base — concepts, deep dives, and **interactive interview prep** organized as 20 phases. Browse it on GitHub or run the MkDocs site locally.
+> A single-source software engineering knowledge base — concepts, deep dives, and **interactive interview prep** organized as 20 phases. Read directly on GitHub. Nothing to clone, install, or run.
 
-Built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) but every page is plain markdown — Q&A blocks use HTML `<details>` so they're collapsible **directly on github.com** without needing to clone or run anything.
-
----
-
-## Two ways to read it
-
-| | On GitHub | Locally with MkDocs |
-|---|---|---|
-| **Cost** | Free, zero setup | One-time `pip install` |
-| **Search** | Repo-wide search | Full-text search box, instant |
-| **Q&A reveal** | ✅ Native `<details>` | ✅ Material styling |
-| **Mermaid diagrams** | ✅ Native | ✅ Plugin |
-| **Dark mode** | ✅ GitHub setting | ✅ Toggle in header |
-| **Best for** | Quick reference, mobile | Long study sessions |
-
-### Browse on GitHub
-Just click into the folders below — every file renders cleanly.
-
-### Run locally
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-mkdocs serve
-```
-Then open <http://127.0.0.1:8000>.
+Pure markdown, designed for GitHub's native rendering. Q&A blocks collapse/expand on click. Mermaid diagrams render inline. Callouts use GitHub Alerts. Internal links navigate between files. Everything works in the browser.
 
 ---
 
@@ -51,7 +26,7 @@ Then open <http://127.0.0.1:8000>.
 
 ### Phases 2-20 — 📝 *Scaffolded; topics fill in incrementally*
 
-Each phase index lists its planned topics with a checklist and learning order:
+Each phase index lists its planned topics with a checklist and learning order. Live progress: [**Progress Dashboard**](docs/progress.md).
 
 | # | Phase |
 |---|---|
@@ -77,9 +52,10 @@ Each phase index lists its planned topics with a checklist and learning order:
 
 ### Cross-cutting
 
-- 🎯 **[Interview Bank](docs/interview-bank/index.md)** — every Q&A indexed [by difficulty](docs/interview-bank/by-difficulty.md) and [by topic](docs/interview-bank/by-topic.md).
-- 🏗️ **[Scenarios Bank](docs/scenarios-bank/index.md)** — system-design problems that span multiple phases. Worked example: [Design a URL Shortener](docs/scenarios-bank/design-url-shortener.md).
+- 🎯 **[Interview Bank](docs/interview-bank/index.md)** — every Q&A indexed [by difficulty](docs/interview-bank/by-difficulty.md) and [by topic](docs/interview-bank/by-topic.md). Auto-generated from every `<details>` block across the repo.
+- 🏗️ **[Scenarios Bank](docs/scenarios-bank/index.md)** — system-design problems that span multiple phases. Worked examples: [URL Shortener](docs/scenarios-bank/design-url-shortener.md), [Rate Limiter](docs/scenarios-bank/design-rate-limiter.md), [Notifications Service](docs/scenarios-bank/design-notifications-service.md).
 - 📖 **[Glossary](docs/glossary.md)** — quick definitions linked to deep dives.
+- 📊 **[Progress](docs/progress.md)** — phase completion dashboard.
 
 ---
 
@@ -88,8 +64,11 @@ Each phase index lists its planned topics with a checklist and learning order:
 1. **Pick a topic page.** Skim TL;DR + Concept Overview.
 2. **Skip to the bottom: Interview Questions section.** Each question is collapsed.
 3. **Read the question. Try to answer in your head or out loud.**
-4. **Click to reveal the model answer.** Compare. Mark topics you didn't nail to revisit.
-5. **For system design:** work through the [Scenarios Bank](docs/scenarios-bank/index.md). Cover the solution. Sketch your own. Compare.
+4. **Click to reveal the model answer.** Compare. Mark topics you didn't nail.
+5. **For system design:** work through the [Scenarios Bank](docs/scenarios-bank/index.md). Cover the solution, sketch your own, then compare.
+
+> [!TIP]
+> For repo-wide search, press <kbd>/</kbd> or <kbd>t</kbd> anywhere on GitHub. Searches across every file instantly — no separate search tool needed.
 
 ---
 
@@ -110,56 +89,15 @@ Every page follows the same skeleton so you always know where to look:
 
 ---
 
-## ✍️ Adding a new topic
+## ✍️ Contributing
 
-1. Copy [`docs/_templates/topic-template.md`](docs/_templates/topic-template.md) into the right phase folder.
-2. Fill in the sections in order: TL;DR → Concept Overview → Deep Dive → Trade-offs → Interview Q&A → Scenarios → Related → References.
-3. Add the file to `nav:` in `mkdocs.yml`.
-4. Replace the `[ ]` checkbox in the phase's `index.md` with `[x]`.
-5. Add the new Q&A links to [`docs/interview-bank/by-difficulty.md`](docs/interview-bank/by-difficulty.md) and [`by-topic.md`](docs/interview-bank/by-topic.md).
-6. Run `mkdocs build --strict` locally to catch broken links and warnings.
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 
----
-
-## 🤝 Contributing & commit conventions
-
-- **Short, focused commits.** One logical change per commit (e.g., "convert Q&A syntax", "add caching topic"). Avoid bundled commits.
-- **Imperative subject lines** (e.g., "Add Singleton pattern", not "Added").
-- **Body explains *why*, not *what*.** The diff shows what.
-- **Verify before committing:** `mkdocs build --strict` should pass.
-- Don't push to `main` directly for substantive content additions — branch + PR.
-
-### Q&A blocks must use `<details>`, not `???`
-
-GitHub doesn't render MkDocs admonition syntax (`??? question "..."`). Use HTML:
-
-```markdown
-<details>
-<summary><strong>Q1: How does X work?</strong></summary>
-
-Answer text. **Blank line above is required** for markdown to render inside.
-
-</details>
-```
-
-This works in both GitHub and MkDocs Material.
-
-### Notes / callouts use GitHub Alert blockquotes
-
-```markdown
-> [!NOTE]
-> A note that styles nicely on GitHub and falls back to a plain blockquote in MkDocs.
-```
-
-Other types: `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, `[!CAUTION]`.
-
----
-
-## 🛠️ Conventions
-
-- **Code language:** Python primary; add Go/JS/Java tabs only when the comparison is illuminating.
-- **Diagrams:** Mermaid (` ```mermaid ` fences) — renders natively on GitHub and in MkDocs.
-- **Frontmatter:** YAML at the top of each topic file with `tags`, `difficulty`, `status`. Used by Material's tags plugin; harmless on GitHub.
+- The **short-commits rule** (one logical change per commit)
+- The **per-topic template** and writing conventions
+- The **Q&A syntax** (HTML `<details>` — works on GitHub)
+- The **GitHub Alert** callout syntax
+- How to add a new topic (no local setup required)
 
 ---
 
@@ -168,25 +106,27 @@ Other types: `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`, `[!CAUTION]`.
 ```
 .
 ├── README.md                 ← you are here
-├── mkdocs.yml                ← MkDocs Material config
-├── requirements.txt          ← mkdocs-material, mkdocs-mermaid2-plugin, …
-├── .gitignore
+├── CONTRIBUTING.md           ← conventions and how to add topics
+├── LICENSE                   ← MIT
+├── .github/
+│   ├── workflows/            ← CI for link checks & markdown lint
+│   └── scripts/              ← optional Python helpers (Q&A scraper, etc.)
 └── docs/
-    ├── index.md              ← landing page (also the MkDocs home)
+    ├── index.md              ← landing page
+    ├── progress.md           ← phase completion dashboard
+    ├── glossary.md
     ├── _templates/
     │   └── topic-template.md ← copy when starting a new topic
-    ├── stylesheets/extra.css
     ├── 01-programming-fundamentals/    ← Phase 1 (written)
     ├── 02-backend-apis/                ← Phase 2 (stub)
     ├── …
     ├── 20-soft-skills-system-design/   ← Phase 20 (stub)
     ├── interview-bank/                 ← cross-cutting Q&A index
-    ├── scenarios-bank/                 ← system-design scenarios
-    └── glossary.md
+    └── scenarios-bank/                 ← system-design scenarios
 ```
 
 ---
 
 ## 📜 License
 
-Personal knowledge base — content is for educational reference. Code snippets are illustrative; use them freely.
+[MIT](LICENSE). Use the content freely; a credit is appreciated but not required.
