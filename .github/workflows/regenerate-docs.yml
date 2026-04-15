@@ -1,14 +1,18 @@
-name: Regenerate Q&A Bank
+name: Regenerate generated docs
 
-# When any topic markdown changes on main, re-run the Q&A scraper and commit
-# the refreshed indexes back to main. No local work required.
+# When any topic markdown changes on main, re-run the generator scripts and
+# commit refreshed outputs back. No local work required.
+#
+# Currently generates:
+#   - docs/interview-bank/{by-difficulty,by-topic,all-questions}.md
+#   - docs/progress.md
 
 on:
   push:
     branches: [main]
     paths:
       - 'docs/**/*.md'
-      - '.github/scripts/build_qa_bank.py'
+      - '.github/scripts/*.py'
   workflow_dispatch:
 
 permissions:
@@ -33,14 +37,17 @@ jobs:
       - name: Regenerate Q&A bank
         run: python3 .github/scripts/build_qa_bank.py
 
+      - name: Regenerate progress dashboard
+        run: python3 .github/scripts/build_progress.py
+
       - name: Commit changes (if any)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [[ -n "$(git status --porcelain docs/interview-bank/)" ]]; then
-            git add docs/interview-bank/
-            git commit -m "chore: regenerate interview bank [skip ci]"
+          if [[ -n "$(git status --porcelain docs/)" ]]; then
+            git add docs/interview-bank/ docs/progress.md
+            git commit -m "chore: regenerate interview bank + progress [skip ci]"
             git push
           else
-            echo "Q&A bank is already up to date — nothing to commit."
+            echo "Generated docs are already up to date — nothing to commit."
           fi
