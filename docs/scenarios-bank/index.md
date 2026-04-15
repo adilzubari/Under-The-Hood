@@ -22,18 +22,21 @@ System-design problems that span multiple phases. Each scenario walks through:
 
 ## Worked scenarios
 
-- [**Design a URL Shortener**](design-url-shortener.md) — caching, sharding, ID generation, rate limiting (touches Phases 3, 4, 9, 14, 17).
+- [**Design a URL Shortener**](design-url-shortener.md) — caching, sharding, ID generation, async click counting *(medium — touches Phases 3, 4, 9, 14, 17)*
+- [**Design a Rate Limiter**](design-rate-limiter.md) — fixed vs sliding window vs token bucket, Redis ZSET + Lua, fail-open semantics *(medium — touches Phases 5, 14, 15, 17)*
+- [**Design a Notifications Service**](design-notifications-service.md) — multi-channel fan-out, idempotency, preferences, priority queues, provider failover *(hard — touches Phases 3, 12, 14, 16)*
 
 ## Add your own
 
-Format: copy `design-url-shortener.md` into `scenarios-bank/`, rename, work through it.
+Format: copy an existing scenario (they all follow the same 5-section structure), rename, work through it.
 
 Suggested next scenarios:
-- Design a rate limiter
 - Design a real-time chat system
-- Design a notifications service
 - Design a video upload + processing pipeline
 - Design a leaderboard for a game
 - Design a search-as-you-type system
 - Design a job queue with priorities
 - Design a feature-flag service
+- Design a distributed file storage (Dropbox-lite)
+- Design a payment system with idempotency
+- Design an API gateway
