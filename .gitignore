@@ -1,7 +1,4 @@
-# MkDocs build output
-site/
-
-# Python
+# Python (used only by optional scripts under .github/scripts/)
 .venv/
 venv/
 env/
