@@ -1,0 +1,46 @@
+name: Regenerate Q&A Bank
+
+# When any topic markdown changes on main, re-run the Q&A scraper and commit
+# the refreshed indexes back to main. No local work required.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**/*.md'
+      - '.github/scripts/build_qa_bank.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    # Prevent loops when this workflow commits back to main.
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Regenerate Q&A bank
+        run: python3 .github/scripts/build_qa_bank.py
+
+      - name: Commit changes (if any)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain docs/interview-bank/)" ]]; then
+            git add docs/interview-bank/
+            git commit -m "chore: regenerate interview bank [skip ci]"
+            git push
+          else
+            echo "Q&A bank is already up to date — nothing to commit."
+          fi
