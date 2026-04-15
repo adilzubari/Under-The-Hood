@@ -1,8 +1,44 @@
 # Under The Hood
 
-> A single-source software engineering knowledge base — concepts, deep dives, and **interactive interview prep** organized as 20 phases. Read directly on GitHub. Nothing to clone, install, or run.
+<p align="center">
+  <b>A free, community-built software engineering knowledge base.</b><br>
+  Concepts, deep dives, interactive interview Q&A, and worked system-design scenarios — organized as 20 phases. Read directly on GitHub. No setup, no paywall, no signup.
+</p>
 
-Pure markdown, designed for GitHub's native rendering. Q&A blocks collapse/expand on click. Mermaid diagrams render inline. Callouts use GitHub Alerts. Internal links navigate between files. Everything works in the browser.
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/adilzubari/Under-The-Hood?color=brightgreen"></a>
+  <a href="https://github.com/adilzubari/Under-The-Hood/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/adilzubari/Under-The-Hood?style=social"></a>
+  <a href="https://github.com/adilzubari/Under-The-Hood/fork"><img alt="GitHub forks" src="https://img.shields.io/github/forks/adilzubari/Under-The-Hood?style=social"></a>
+  <a href="https://github.com/adilzubari/Under-The-Hood/pulls"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/adilzubari/Under-The-Hood">
+</p>
+
+<p align="center">
+  <a href="#-full-table-of-contents">Contents</a> •
+  <a href="#-how-to-use-this-for-interview-prep">How to Study</a> •
+  <a href="docs/scenarios-bank/index.md">Scenarios</a> •
+  <a href="docs/interview-bank/index.md">Interview Q&A</a> •
+  <a href="docs/study-plans.md">Study Plans</a> •
+  <a href="CONTRIBUTING.md">Contribute</a> •
+  <a href="SUPPORT.md">Support</a>
+</p>
+
+> [!TIP]
+> **If this helps you, please [⭐ star the repo](https://github.com/adilzubari/Under-The-Hood/stargazers).** It's the single most effective way to help others find this. Costs nothing; means a lot.
+
+---
+
+## 🎁 What's inside
+
+- **20 phases** of SE concepts — from OOP/SOLID to distributed systems to soft skills.
+- **17 fully-written topics** in Phase 1 (Programming Fundamentals), with the rest scaffolded and filled in as I go.
+- **91+ interview questions** with model answers, collapsed so you can self-quiz.
+- **5 worked system-design scenarios** (URL shortener, rate limiter, notifications, real-time chat, priority job queue) — each with a full walkthrough, trade-off table, and 10x / 1÷100x scaling discussion.
+- **Anki-ready flashcard export** for offline study on any device.
+- **Curated study plans** for different paths (mid-level sprint, senior system design, depth-first).
+- Pure markdown — everything renders natively on GitHub. No build. No install. No server.
+
+Built mostly for interview prep and personal reference, but works well as a shared team resource or a teaching aid.
 
 ---
 
@@ -73,6 +109,8 @@ Each phase index lists its planned topics with a checklist and learning order. L
 > [!TIP]
 > For repo-wide search, press <kbd>/</kbd> or <kbd>t</kbd> anywhere on GitHub. Searches across every file instantly — no separate search tool needed.
 
+For curated learning paths by goal (mid-level interview sprint / senior system design / depth-first), see **[Study Plans](docs/study-plans.md)**.
+
 ---
 
 ## 📐 Per-topic format
@@ -94,13 +132,37 @@ Every page follows the same skeleton so you always know where to look:
 
 ## ✍️ Contributing
 
-See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
+**PRs genuinely welcome.** See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 
 - The **short-commits rule** (one logical change per commit)
 - The **per-topic template** and writing conventions
 - The **Q&A syntax** (HTML `<details>` — works on GitHub)
 - The **GitHub Alert** callout syntax
-- How to add a new topic (no local setup required)
+- How to add a new topic (no local setup required — just edit markdown)
+
+Good first contributions:
+- **Fix a typo or broken link** — low risk, high appreciation
+- **Add an Interview Question** to an existing topic
+- **Write a scenario** from the [suggested list](docs/scenarios-bank/index.md#add-your-own)
+- **Fill in a Phase 2-20 topic** — each phase's `index.md` has a checklist
+
+---
+
+## 🧡 Support this project
+
+**This is a free gift to the community.** MIT-licensed, no paywall, no ads, no tracking.
+
+The most valuable support costs you nothing:
+
+- ⭐ **[Star the repo](https://github.com/adilzubari/Under-The-Hood/stargazers)** — helps others discover it
+- 🔁 **Share it** on LinkedIn / X / Reddit / your team Slack
+- ✍️ **Contribute** — typos, corrections, new topics, scenarios
+- 💬 **[Open an issue](https://github.com/adilzubari/Under-The-Hood/issues/new/choose)** with feedback
+
+If the content has materially helped you (landed an offer, passed a round, replaced a paid course) and you want to buy me a coffee, see **[SUPPORT.md](SUPPORT.md)** for sponsor options including Pakistan-compatible channels (GitHub Sponsors, Buy Me a Coffee, Ko-fi, Patreon, direct transfer).
+
+> [!NOTE]
+> All financial support is **strictly optional** and has **zero effect on content access**. The content will always be free.
 
 ---
 
@@ -110,13 +172,19 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 .
 ├── README.md                 ← you are here
 ├── CONTRIBUTING.md           ← conventions and how to add topics
+├── SUPPORT.md                ← ways to support + sponsor links
 ├── LICENSE                   ← MIT
 ├── .github/
-│   ├── workflows/            ← CI for link checks & markdown lint
-│   └── scripts/              ← optional Python helpers (Q&A scraper, etc.)
+│   ├── FUNDING.yml           ← sponsor button config
+│   ├── workflows/            ← CI for link checks + auto-generated docs
+│   └── scripts/              ← Python helpers (Q&A scraper, etc.)
+├── exports/
+│   └── flashcards.csv        ← auto-generated Anki deck
 └── docs/
     ├── index.md              ← landing page
-    ├── progress.md           ← phase completion dashboard
+    ├── progress.md           ← phase completion dashboard (auto-generated)
+    ├── tags.md               ← tag index (auto-generated)
+    ├── study-plans.md        ← curated learning tracks
     ├── glossary.md
     ├── _templates/
     │   └── topic-template.md ← copy when starting a new topic
@@ -124,7 +192,7 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
     ├── 02-backend-apis/                ← Phase 2 (stub)
     ├── …
     ├── 20-soft-skills-system-design/   ← Phase 20 (stub)
-    ├── interview-bank/                 ← cross-cutting Q&A index
+    ├── interview-bank/                 ← cross-cutting Q&A index (auto-generated)
     └── scenarios-bank/                 ← system-design scenarios
 ```
 
@@ -132,4 +200,11 @@ See **[CONTRIBUTING.md](CONTRIBUTING.md)** for:
 
 ## 📜 License
 
-[MIT](LICENSE). Use the content freely; a credit is appreciated but not required.
+[MIT](LICENSE). Use the content freely — for study, for teaching, for internal team docs. Attribution is appreciated but not required.
+
+---
+
+<p align="center">
+  <sub>Built with 🧡 by <a href="https://github.com/adilzubari">Muhammad Adil</a>. Free forever.<br>
+  If this helped you, <a href="https://github.com/adilzubari/Under-The-Hood/stargazers">star the repo</a> and share it with someone who's studying.</sub>
+</p>
