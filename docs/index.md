@@ -1,4 +1,4 @@
-# SE Docs
+# Under The Hood
 
 A personal software engineering knowledge base — concepts, deep dives, and **interactive interview prep**.
 

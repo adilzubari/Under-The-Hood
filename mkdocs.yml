@@ -1,6 +1,9 @@
-site_name: SE Docs
+site_name: Under The Hood
 site_description: Software Engineering concepts, deep dives, and interview prep
 site_author: Muhammad Adil
+site_url: https://github.com/adilzubari/Under-The-Hood
+repo_url: https://github.com/adilzubari/Under-The-Hood
+repo_name: adilzubari/Under-The-Hood
 copyright: Personal knowledge base — for learning and reference
 
 exclude_docs: |
