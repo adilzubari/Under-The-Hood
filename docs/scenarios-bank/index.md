@@ -25,18 +25,20 @@ System-design problems that span multiple phases. Each scenario walks through:
 - [**Design a URL Shortener**](design-url-shortener.md) — caching, sharding, ID generation, async click counting *(medium — touches Phases 3, 4, 9, 14, 17)*
 - [**Design a Rate Limiter**](design-rate-limiter.md) — fixed vs sliding window vs token bucket, Redis ZSET + Lua, fail-open semantics *(medium — touches Phases 5, 14, 15, 17)*
 - [**Design a Notifications Service**](design-notifications-service.md) — multi-channel fan-out, idempotency, preferences, priority queues, provider failover *(hard — touches Phases 3, 12, 14, 16)*
+- [**Design a Real-Time Chat System**](design-real-time-chat.md) — WebSockets, stateful gateways, pub/sub fan-out, offline replay, presence *(hard — touches Phases 3, 5, 6, 12, 14, 15, 17)*
+- [**Design a Priority Job Queue**](design-priority-job-queue.md) — weighted fair sampling, retries + backoff, DLQ, heartbeats, stuck-job recovery *(medium — touches Phases 3, 6, 12, 14, 15, 16)*
 
 ## Add your own
 
 Format: copy an existing scenario (they all follow the same 5-section structure), rename, work through it.
 
 Suggested next scenarios:
-- Design a real-time chat system
 - Design a video upload + processing pipeline
 - Design a leaderboard for a game
 - Design a search-as-you-type system
-- Design a job queue with priorities
 - Design a feature-flag service
 - Design a distributed file storage (Dropbox-lite)
 - Design a payment system with idempotency
 - Design an API gateway
+- Design a newsfeed / timeline
+- Design a recommendation system
