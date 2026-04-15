@@ -1,0 +1,37 @@
+# Funding configuration — adds a "Sponsor" button to the repo and the GitHub
+# UI. This knowledge base is a free, community-focused project; any support
+# is optional and goes toward keeping it maintained.
+#
+# ⚠️  PLACEHOLDERS — update the usernames/URLs below when accounts are ready.
+#
+# Pakistan compatibility notes (as of 2026):
+#   - GitHub Sponsors ..... Available in Pakistan since 2023 (Stripe payout)
+#   - Patreon ............. Works via Payoneer (well-supported in PK)
+#   - Ko-fi ............... Works (PayPal / Stripe)
+#   - Buy Me a Coffee ..... Partial (Stripe; check country eligibility)
+#   - Custom URL .......... Any of: Payoneer public link, Wise link,
+#                           JazzCash / EasyPaisa, crypto wallet, etc.
+#
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+# Native GitHub Sponsors (recommended for dev audiences)
+github: adilzubari
+
+# Patreon — best for recurring support; pays out via Payoneer in Pakistan
+patreon: adilzubari
+
+# Ko-fi — popular one-time tip jar
+ko_fi: adilzubari
+
+# Buy Me a Coffee — widely recognized; confirm Pakistan Stripe eligibility
+buy_me_a_coffee: adilzubari
+
+# Custom URLs — up to 4. Use any of these for:
+#   - Payoneer public payment link (https://pay.payoneer.com/...)
+#   - Wise link (https://wise.com/pay/me/...)
+#   - JazzCash / EasyPaisa direct link
+#   - Crypto wallet address page
+custom:
+  - "https://buymeacoffee.com/adilzubari"   # placeholder — replace with real BMC link
+  # - "https://pay.payoneer.com/YOUR_LINK"
+  # - "https://wise.com/pay/me/YOUR_LINK"
